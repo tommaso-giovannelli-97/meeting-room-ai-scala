@@ -1,19 +1,15 @@
 package controllers
 
 import akka.actor.ActorSystem
-import akka.http.scaladsl.Http
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
-import akka.http.scaladsl.model.{ContentTypes, HttpEntity, HttpResponse, StatusCodes}
+import akka.http.scaladsl.model.{ HttpResponse, StatusCodes}
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
 import entities.Account
 import repositories.AccountRepository
-import slick.jdbc.MySQLProfile.api._
 import spray.json.{DefaultJsonProtocol, RootJsonFormat}
 
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext
 
 object AccountJsonProtocol extends DefaultJsonProtocol {
@@ -94,7 +90,7 @@ object AccountController {
       }
     }
 
-  val routes: Route = createRoute ~ getByIdRoute ~ getAllRoute ~ updateRoute ~ deleteRoute
+  val accountRoutes: Route = createRoute ~ getByIdRoute ~ getAllRoute ~ updateRoute ~ deleteRoute
 
 }
 
