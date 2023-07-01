@@ -8,8 +8,14 @@ import scala.concurrent.Await
 import scala.concurrent.duration.DurationInt
 
 object BookingRepository {
-  val config = ConfigFactory.load()
-  val db = Database.forConfig("postgresConnection", config)
+  val db: Database = {
+    val dataSource = new org.postgresql.ds.PGSimpleDataSource()
+    dataSource.setUser("postgres")
+    dataSource.setPassword("postgres")
+    dataSource.setURL("jdbc:postgresql://localhost:5432/meeting-room")
+
+    Database.forDataSource(dataSource, None)
+  }
 
   val bookings = TableQuery[Bookings]
 

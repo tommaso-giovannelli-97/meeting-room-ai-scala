@@ -4,20 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac738f0a-f192-4e1c-bce2-c81bd816dc79" name="Changes" comment="- Mapped database tables to entities&#10;- Created AccountRepository and AccountController">
-      <change afterPath="$PROJECT_DIR$/src/main/scala/controllers/BookingController.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/controllers/ColorController.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/controllers/EquipmentController.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/controllers/RoomController.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/controllers/RoomSetupController.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/repositories/ColorRepository.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/repositories/EquipmentRepository.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/repositories/RoomRepository.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/repositories/RoomSetupRepository.scala" afterDir="false" />
+    <list default="true" id="ac738f0a-f192-4e1c-bce2-c81bd816dc79" name="Changes" comment="- Created controllers and repositories for all the entities&#10;&#10;- Mapped all the routes on Main">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Main.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/AccountController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/AccountController.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/entities/Booking.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/entities/Booking.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/AccountRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/AccountRepository.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/ColorRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/ColorRepository.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/EquipmentRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/EquipmentRepository.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/RoomRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/RoomRepository.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/RoomSetupRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/RoomSetupRepository.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +106,14 @@
       <option name="project" value="LOCAL" />
       <updated>1687358914930</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="- Created controllers and repositories for all the entities&#10;&#10;- Mapped all the routes on Main">
+      <created>1687508591152</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1687508591152</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -127,20 +130,26 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="- First commit" />
     <MESSAGE value="- Mapped database tables to entities&#10;- Created AccountRepository and AccountController" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Mapped database tables to entities&#10;- Created AccountRepository and AccountController" />
+    <MESSAGE value="- Created controllers and repositories for all the entities&#10;&#10;- Mapped all the routes on Main" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Created controllers and repositories for all the entities&#10;&#10;- Mapped all the routes on Main" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/repositories/AccountRepository.scala</url>
-          <line>31</line>
+          <line>37</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/src/main/scala/controllers/AccountController.scala</url>
-          <line>59</line>
-          <option name="timeStamp" value="2" />
+          <url>file://$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala</url>
+          <line>25</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/src/main/scala/repositories/ColorRepository.scala</url>
+          <line>36</line>
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

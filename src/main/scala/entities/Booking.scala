@@ -5,7 +5,7 @@ import java.sql.Timestamp
 import java.time.LocalDateTime
 
 case class Booking(
-                    id: Int,
+                    id: Option[Int],
                     roomId: Int,
                     accountId: String,
                     fromTime: Timestamp,
@@ -18,7 +18,7 @@ case class Booking(
                   ) extends Product with Serializable
 
 class Bookings(tag: Tag) extends Table[Booking](tag, "booking") {
-  def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
+  def id = column[Option[Int]]("id", O.PrimaryKey, O.AutoInc)
 
   def roomId = column[Int]("room_id")
 

@@ -9,8 +9,14 @@ import scala.concurrent.duration.DurationInt
 
 object AccountRepository {
 
-  val config = ConfigFactory.load()
-  val db = Database.forConfig("postgresConnection", config)
+  val db: Database = {
+    val dataSource = new org.postgresql.ds.PGSimpleDataSource()
+    dataSource.setUser("postgres")
+    dataSource.setPassword("postgres")
+    dataSource.setURL("jdbc:postgresql://localhost:5432/meeting-room")
+
+    Database.forDataSource(dataSource, None)
+  }
 
   val accounts = TableQuery[Accounts]
 
