@@ -23,13 +23,25 @@ object RoomRepository {
     Await.result(db.run(action), 2.seconds)
 
   def create(room: Room): Room = {
-    val query = rooms += room
-    exec(query)
-    room
+    val optionRoom : Option[Room] = getByName(room.name)
+    if(optionRoom.isEmpty) {
+      val query = rooms += room
+      exec(query)
+      room
+    }
+    else {
+      throw new Exception("A room with this name already exists.")
+    }
+
   }
 
   def getById(id: Int): Option[Room] = {
     val query = rooms.filter(_.id === id)
+    exec(query.result.headOption)
+  }
+
+  def getByName(name : String): Option[Room] = {
+    val query = rooms.filter(_.name === name)
     exec(query.result.headOption)
   }
 

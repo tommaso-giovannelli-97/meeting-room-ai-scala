@@ -2,10 +2,10 @@ package entities
 
 import slick.jdbc.PostgresProfile.api._
 
-case class Color(id: Int, name: String) extends Product with Serializable
+case class Color(id: Option[Int], name: String) extends Product with Serializable
 
 class Colors(tag: Tag) extends Table[Color](tag, "color") {
-  def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
+  def id = column[Option[Int]]("id", O.PrimaryKey, O.AutoInc)
 
   def name = column[String]("name")
 

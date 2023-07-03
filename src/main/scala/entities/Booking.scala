@@ -42,7 +42,7 @@ class Bookings(tag: Tag) extends Table[Booking](tag, "booking") {
     (id, roomId, accountId, fromTime, untilTime, meetingTitle, notes, gMeetLink, createdAt, isActive).mapTo[Booking]
 
   def fkRoomId =
-    foreignKey("booking_room_id_fkey", roomId, TableQuery[Rooms])(_.id, onUpdate = ForeignKeyAction.Restrict, onDelete = ForeignKeyAction.Restrict)
+    foreignKey("booking_room_id_fkey", roomId, TableQuery[Rooms])(_.id.get, onUpdate = ForeignKeyAction.Restrict, onDelete = ForeignKeyAction.Restrict)
 
   def fkAccountId =
     foreignKey("booking_account_id_fkey", accountId, TableQuery[Accounts])(_.id, onUpdate = ForeignKeyAction.Restrict, onDelete = ForeignKeyAction.Restrict)

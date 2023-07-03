@@ -22,6 +22,7 @@ object RoomJsonProtocol extends DefaultJsonProtocol {
       case _ => throw new DeserializationException("Expected Timestamp as JsString")
     }
   }
+
   implicit val roomFormat: RootJsonFormat[Room] = jsonFormat6(Room)
 }
 
@@ -41,8 +42,14 @@ object RoomController {
       path("rooms") {
         post {
           entity(as[Room]) { room =>
-            val createdRoom = RoomRepository.create(room)
-            complete(createdRoom)
+            try {
+              val createdRoom = RoomRepository.create(room)
+              complete(createdRoom)
+            }
+            catch {
+              case ex: Exception =>
+                complete(StatusCodes.BadRequest, s"Error occurred: ${ex.getMessage}")
+            }
           }
         }
       }

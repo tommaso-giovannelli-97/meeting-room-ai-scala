@@ -23,13 +23,25 @@ object ColorRepository {
     Await.result(db.run(action), 2.seconds)
 
   def create(color: Color): Color = {
-    val query = colors += color
-    exec(query)
-    color
+    val optionColor : Option[Color] = getByName(color.name)
+    if(optionColor.isEmpty) {
+      val query = colors += color
+      exec(query)
+      color
+    }
+    else{
+      throw new Exception("This color already exists.")
+    }
+
   }
 
   def getById(id: Int): Option[Color] = {
     val query = colors.filter(_.id === id)
+    exec(query.result.headOption)
+  }
+
+  def getByName(name : String) : Option[Color] = {
+    val query = colors.filter(_.name === name)
     exec(query.result.headOption)
   }
 

@@ -4,10 +4,10 @@ import slick.jdbc.PostgresProfile.api._
 import java.sql.Timestamp
 import java.time.LocalDateTime
 
-case class Room(id: Int, colorId: Int, name: String, seats: Int, createdAt: Option[Timestamp], isActive: Option[Boolean]) extends Product with Serializable
+case class Room(id: Option[Int], colorId: Int, name: String, seats: Int, createdAt: Option[Timestamp], isActive: Option[Boolean]) extends Product with Serializable
 
 class Rooms(tag: Tag) extends Table[Room](tag, "room")  {
-  def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
+  def id = column[Option[Int]]("id", O.PrimaryKey, O.AutoInc)
   def colorId = column[Int]("color_id")
   def name = column[String]("name")
   def seats = column[Int]("seats")

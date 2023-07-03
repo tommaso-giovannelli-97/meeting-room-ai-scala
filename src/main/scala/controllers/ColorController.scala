@@ -32,8 +32,13 @@ object ColorController {
       path("colors") {
         post {
           entity(as[Color]) { color =>
-            val createdColor = ColorRepository.create(color)
-            complete(createdColor)
+            try {
+              val createdColor = ColorRepository.create(color)
+              complete(createdColor)
+            } catch {
+              case ex: Exception =>
+                complete(StatusCodes.BadRequest, s"Error occurred: ${ex.getMessage}")
+            }
           }
         }
       }
