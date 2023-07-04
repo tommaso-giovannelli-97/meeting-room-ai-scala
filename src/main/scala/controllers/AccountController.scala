@@ -2,18 +2,25 @@ package controllers
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
-import akka.http.scaladsl.model.{ HttpResponse, StatusCodes}
+//import akka.http.scaladsl.model.{HttpResponse, StatusCodes}
+import akka.http.scaladsl.model._
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
+import dtos.AccountDTO
 import entities.Account
 import repositories.AccountRepository
-import spray.json.{DefaultJsonProtocol, RootJsonFormat}
+//import spray.json.{DefaultJsonProtocol, RootJsonFormat}
+import spray.json._
 
 import scala.concurrent.ExecutionContext
 
 object AccountJsonProtocol extends DefaultJsonProtocol {
   implicit val accountFormat: RootJsonFormat[Account] = jsonFormat4(Account)
+}
+
+object AccountDTOJsonProtocol extends DefaultJsonProtocol {
+  implicit val accountDTOFormat: RootJsonFormat[AccountDTO] = jsonFormat3(AccountDTO)
 }
 
 object AccountController {
@@ -23,6 +30,7 @@ object AccountController {
 
   import SprayJsonSupport._ // Import the SprayJsonSupport trait
   import AccountJsonProtocol._
+  import AccountDTOJsonProtocol._
 
   val baseUrl = "api" / "v1"
 
@@ -31,7 +39,7 @@ object AccountController {
     pathPrefix(baseUrl) {
       path("accounts") {
         post {
-          entity(as[Account]) { account =>
+          entity(as[AccountDTO]) { account =>
             val createdAccount = AccountRepository.create(account)
 
             complete(createdAccount)
@@ -55,7 +63,7 @@ object AccountController {
       }
     }
 
-  val getAllRoute =
+  /*val getAllRoute =
     pathPrefix(baseUrl) {
       path("accounts") {
         get {
@@ -64,7 +72,7 @@ object AccountController {
           complete(getAllResult)
         }
       }
-    }
+    }*/
 
   // Update
   val updateRoute =
@@ -90,7 +98,8 @@ object AccountController {
       }
     }
 
-  val accountRoutes: Route = createRoute ~ getByIdRoute ~ getAllRoute ~ updateRoute ~ deleteRoute
+  val accountRoutes: Route = createRoute ~ getByIdRoute  ~ updateRoute ~ deleteRoute
+  //  ~ getAllRoute
 
 }
 

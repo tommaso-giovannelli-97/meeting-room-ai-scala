@@ -5,17 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac738f0a-f192-4e1c-bce2-c81bd816dc79" name="Changes" comment="- Changed entities id type from Int to Option[Int] in order to perform CREATE operation without passing the id.&#10;- Added check for duplicates color and room names when saving a new entity to db.">
+      <change afterPath="$PROJECT_DIR$/src/main/scala/dtos/AccountDTO.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/dtos/BookingDTO.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/utils/DateTimeUtils.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.conf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.conf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/ColorController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/ColorController.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/RoomController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/RoomController.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/entities/Booking.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/entities/Booking.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/entities/Color.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/entities/Color.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/entities/Equipment.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/entities/Equipment.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/entities/Room.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/entities/Room.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/entities/RoomSetup.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/entities/RoomSetup.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/ColorRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/ColorRepository.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/RoomRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/RoomRepository.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/AccountController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/AccountController.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/BookingController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/BookingController.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/entities/Account.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/entities/Account.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/AccountRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/AccountRepository.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,6 +83,20 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="meeting-room-ai-scala" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -122,7 +134,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688225826238</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="- Changed entities id type from Int to Option[Int] in order to perform CREATE operation without passing the id.&#10;- Added check for duplicates color and room names when saving a new entity to db.">
+      <created>1688386424077</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1688386424077</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -149,12 +168,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/repositories/AccountRepository.scala</url>
-          <line>37</line>
+          <line>40</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala</url>
-          <line>25</line>
+          <line>27</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
@@ -176,6 +195,11 @@
           <url>file://$PROJECT_DIR$/src/main/scala/controllers/RoomController.scala</url>
           <line>45</line>
           <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/src/main/scala/repositories/AccountRepository.scala</url>
+          <line>27</line>
+          <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

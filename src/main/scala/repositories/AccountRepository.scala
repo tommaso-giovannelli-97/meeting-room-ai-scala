@@ -1,6 +1,7 @@
 package repositories
 
 import com.typesafe.config.ConfigFactory
+import dtos.AccountDTO
 import entities.{Account, Accounts}
 import slick.jdbc.PostgresProfile.api._
 
@@ -23,10 +24,12 @@ object AccountRepository {
   def exec[T](action: DBIO[T]): T =
     Await.result(db.run(action), 2.seconds)
 
-  def create(account: Account): Account = {
-    val query = accounts += account
-    exec(query)
-    account
+  def create(accountDTO: AccountDTO): Account = {
+    val account = accountDTO.toEntity()
+    //val query = accounts += account
+    val query = (accounts returning accounts) += account
+    val created : Account = exec(query)
+    created
   }
 
   def getById(id: String): Option[Account] = {

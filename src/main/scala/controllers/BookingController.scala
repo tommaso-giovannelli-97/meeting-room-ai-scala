@@ -6,6 +6,7 @@ import akka.http.scaladsl.model.{HttpResponse, StatusCodes}
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
+import dtos.BookingDTO
 import entities.Booking
 import repositories.BookingRepository
 import spray.json.{DefaultJsonProtocol, DeserializationException, JsString, JsValue, JsonFormat, RootJsonFormat}
@@ -25,6 +26,18 @@ object BookingJsonProtocol extends DefaultJsonProtocol {
   implicit val bookingFormat: RootJsonFormat[Booking] = jsonFormat10(Booking)
 }
 
+object BookingDTOJsonProtocol extends DefaultJsonProtocol {
+  implicit object TimestampFormat extends JsonFormat[Timestamp] {
+    def write(obj: Timestamp): JsValue = JsString(obj.toString)
+
+    def read(json: JsValue): Timestamp = json match {
+      case JsString(s) => Timestamp.valueOf(s)
+      case _ => throw new DeserializationException("Expected Timestamp as JsString")
+    }
+  }
+  implicit val bookingDTOFormat: RootJsonFormat[BookingDTO] = jsonFormat7(BookingDTO)
+}
+
 object BookingController {
   implicit val system = ActorSystem("booking-service")
   implicit val materializer = ActorMaterializer()
@@ -32,6 +45,7 @@ object BookingController {
 
   import SprayJsonSupport._
   import BookingJsonProtocol._
+  import BookingDTOJsonProtocol._
 
   val baseUrl = "api" / "v1"
 
@@ -40,7 +54,7 @@ object BookingController {
     pathPrefix(baseUrl) {
       path("bookings") {
         post {
-          entity(as[Booking]) { booking =>
+          entity(as[BookingDTO]) { booking =>
             val createdBooking = BookingRepository.create(booking)
             complete(createdBooking)
           }
@@ -62,7 +76,7 @@ object BookingController {
       }
     }
 
-  val getAllRoute =
+/*  val getAllRoute =
     pathPrefix(baseUrl) {
       path("bookings") {
         get {
@@ -70,7 +84,7 @@ object BookingController {
           complete(getAllResult)
         }
       }
-    }
+    }*/
 
   // Update
   val updateRoute =
@@ -96,5 +110,6 @@ object BookingController {
       }
     }
 
-  val bookingRoutes: Route = createRoute ~ getByIdRoute ~ getAllRoute ~ updateRoute ~ deleteRoute
+  //~ getAllRoute
+  val bookingRoutes: Route = createRoute ~ getByIdRoute ~ updateRoute ~ deleteRoute
 }

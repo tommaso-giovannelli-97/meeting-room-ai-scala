@@ -1,7 +1,6 @@
 package entities
 
 import slick.jdbc.PostgresProfile.api._
-
 case class Account(id: String, name: String, email: Option[String], isActive: Option[Boolean]) extends Product with Serializable
 
 class Accounts(tag: Tag) extends Table[Account](tag, "account") {
@@ -11,7 +10,7 @@ class Accounts(tag: Tag) extends Table[Account](tag, "account") {
 
   def name = column[String]("name")
 
-  def isActive = column[Option[Boolean]]("is_active")
+  def isActive = column[Option[Boolean]]("is_active", O.Default(Some(true)))
 
   def emailKey = index("user_email_key", email, unique = true)
 

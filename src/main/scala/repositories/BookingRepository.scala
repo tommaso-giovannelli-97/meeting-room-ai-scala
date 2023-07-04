@@ -1,6 +1,7 @@
 package repositories
 
 import com.typesafe.config.ConfigFactory
+import dtos.BookingDTO
 import entities.{Booking, Bookings}
 import slick.jdbc.PostgresProfile.api._
 
@@ -22,7 +23,8 @@ object BookingRepository {
   def exec[T](action: DBIO[T]): T =
     Await.result(db.run(action), 2.seconds)
 
-  def create(booking: Booking): Booking = {
+  def create(bookingDTO: BookingDTO): Booking = {
+    val booking = bookingDTO.toEntity()
     val query = bookings += booking
     exec(query)
     booking
