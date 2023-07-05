@@ -1,6 +1,7 @@
 package repositories
 
 import com.typesafe.config.ConfigFactory
+import dtos.RoomDTO
 import entities.{Room, Rooms}
 import slick.jdbc.PostgresProfile.api._
 
@@ -22,9 +23,10 @@ object RoomRepository {
   def exec[T](action: DBIO[T]): T =
     Await.result(db.run(action), 2.seconds)
 
-  def create(room: Room): Room = {
-    val optionRoom : Option[Room] = getByName(room.name)
+  def create(roomDTO: RoomDTO): Room = {
+    val optionRoom : Option[Room] = getByName(roomDTO.name)
     if(optionRoom.isEmpty) {
+      val room = roomDTO.toEntity()
       val query = rooms += room
       exec(query)
       room

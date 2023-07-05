@@ -6,6 +6,7 @@ import akka.http.scaladsl.model.{HttpResponse, StatusCodes}
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
+import dtos.EquipmentDTO
 import entities.Equipment
 import repositories.EquipmentRepository
 import spray.json.{DefaultJsonProtocol, DeserializationException, JsString, JsValue, JsonFormat, RootJsonFormat}
@@ -23,6 +24,7 @@ object EquipmentJsonProtocol extends DefaultJsonProtocol {
   }
 
   implicit val equipmentFormat: RootJsonFormat[Equipment] = jsonFormat4(Equipment)
+  implicit val equipmentDTOFormat: RootJsonFormat[EquipmentDTO] = jsonFormat1(EquipmentDTO)
 }
 
 object EquipmentController {
@@ -40,7 +42,7 @@ object EquipmentController {
     pathPrefix(baseUrl) {
       path("equipment") {
         post {
-          entity(as[Equipment]) { equipment =>
+          entity(as[EquipmentDTO]) { equipment =>
             val createdEquipment = EquipmentRepository.create(equipment)
             complete(createdEquipment)
           }

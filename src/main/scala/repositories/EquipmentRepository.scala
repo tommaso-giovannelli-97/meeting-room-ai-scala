@@ -1,6 +1,6 @@
 package repositories
 
-import com.typesafe.config.ConfigFactory
+import dtos.EquipmentDTO
 import entities.{Equipment, Equipments}
 import slick.jdbc.PostgresProfile.api._
 
@@ -22,7 +22,8 @@ object EquipmentRepository {
   def exec[T](action: DBIO[T]): T =
     Await.result(db.run(action), 2.seconds)
 
-  def create(equipment: Equipment): Equipment = {
+  def create(equipmentDTO: EquipmentDTO): Equipment = {
+    val equipment = equipmentDTO.toEntity()
     val query = equipments += equipment
     exec(query)
     equipment

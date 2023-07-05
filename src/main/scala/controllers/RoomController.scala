@@ -6,6 +6,7 @@ import akka.http.scaladsl.model.{HttpResponse, StatusCodes}
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
+import dtos.RoomDTO
 import entities.Room
 import repositories.RoomRepository
 import spray.json.{DefaultJsonProtocol, DeserializationException, JsString, JsValue, JsonFormat, RootJsonFormat}
@@ -24,6 +25,7 @@ object RoomJsonProtocol extends DefaultJsonProtocol {
   }
 
   implicit val roomFormat: RootJsonFormat[Room] = jsonFormat6(Room)
+  implicit val roomDTOFormat: RootJsonFormat[RoomDTO] = jsonFormat3(RoomDTO)
 }
 
 object RoomController {
@@ -41,7 +43,7 @@ object RoomController {
     pathPrefix(baseUrl) {
       path("rooms") {
         post {
-          entity(as[Room]) { room =>
+          entity(as[RoomDTO]) { room =>
             try {
               val createdRoom = RoomRepository.create(room)
               complete(createdRoom)

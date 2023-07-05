@@ -2,18 +2,20 @@ package controllers
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
-import akka.http.scaladsl.model.{ HttpResponse, StatusCodes }
+import akka.http.scaladsl.model.{HttpResponse, StatusCodes}
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
+import dtos.RoomSetupDTO
 import entities.RoomSetup
 import repositories.RoomSetupRepository
-import spray.json.{ DefaultJsonProtocol, RootJsonFormat }
+import spray.json.{DefaultJsonProtocol, RootJsonFormat}
 
 import scala.concurrent.ExecutionContext
 
 object RoomSetupJsonProtocol extends DefaultJsonProtocol {
   implicit val roomSetupFormat: RootJsonFormat[RoomSetup] = jsonFormat4(RoomSetup)
+  implicit val roomSetupDTOFormat: RootJsonFormat[RoomSetupDTO] = jsonFormat2(RoomSetupDTO)
 }
 
 object RoomSetupController {
@@ -31,7 +33,7 @@ object RoomSetupController {
     pathPrefix(baseUrl) {
       path("room-setups") {
         post {
-          entity(as[RoomSetup]) { roomSetup =>
+          entity(as[RoomSetupDTO]) { roomSetup =>
             val createdRoomSetup = RoomSetupRepository.create(roomSetup)
             complete(createdRoomSetup)
           }

@@ -4,10 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac738f0a-f192-4e1c-bce2-c81bd816dc79" name="Changes" comment="- Added DTOs to allow creation of entities in a smoother and more natural way">
-      <change afterPath="$PROJECT_DIR$/src/main/scala/utils/DateTimeUtils.scala" afterDir="false" />
+    <list default="true" id="ac738f0a-f192-4e1c-bce2-c81bd816dc79" name="Changes" comment="- Solved bug in getAllRoutes that was preventing the application to start">
+      <change afterPath="$PROJECT_DIR$/src/main/scala/dtos/EquipmentDTO.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/dtos/RoomDTO.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/dtos/RoomSetupDTO.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/AccountController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/AccountController.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/EquipmentController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/EquipmentController.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/RoomController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/RoomController.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/RoomSetupController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/RoomSetupController.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/EquipmentRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/EquipmentRepository.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/RoomRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/RoomRepository.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/RoomSetupRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/RoomSetupRepository.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,7 +149,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688466484636</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="- Solved bug in getAllRoutes that was preventing the application to start">
+      <created>1688551238717</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1688551238717</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -163,7 +177,8 @@
     <MESSAGE value="- Completed basic CRUD mapping between entities and db tables" />
     <MESSAGE value="- Changed entities id type from Int to Option[Int] in order to perform CREATE operation without passing the id.&#10;- Added check for duplicates color and room names when saving a new entity to db." />
     <MESSAGE value="- Added DTOs to allow creation of entities in a smoother and more natural way" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Added DTOs to allow creation of entities in a smoother and more natural way" />
+    <MESSAGE value="- Solved bug in getAllRoutes that was preventing the application to start" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Solved bug in getAllRoutes that was preventing the application to start" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -190,7 +205,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/controllers/RoomController.scala</url>
-          <line>45</line>
+          <line>47</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
