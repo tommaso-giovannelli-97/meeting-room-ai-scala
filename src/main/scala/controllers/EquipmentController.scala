@@ -13,10 +13,6 @@ import spray.json.{DefaultJsonProtocol, DeserializationException, JsString, JsVa
 import java.sql.Timestamp
 import scala.concurrent.ExecutionContext
 
-//object EquipmentJsonProtocol extends DefaultJsonProtocol {
-//  implicit val equipmentFormat: RootJsonFormat[Equipment] = jsonFormat4(Equipment)
-//}
-
 object EquipmentJsonProtocol extends DefaultJsonProtocol {
   implicit object TimestampFormat extends JsonFormat[Timestamp] {
     def write(obj: Timestamp): JsValue = JsString(obj.toString)

@@ -4,16 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac738f0a-f192-4e1c-bce2-c81bd816dc79" name="Changes" comment="- Changed entities id type from Int to Option[Int] in order to perform CREATE operation without passing the id.&#10;- Added check for duplicates color and room names when saving a new entity to db.">
-      <change afterPath="$PROJECT_DIR$/src/main/scala/dtos/AccountDTO.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/dtos/BookingDTO.scala" afterDir="false" />
+    <list default="true" id="ac738f0a-f192-4e1c-bce2-c81bd816dc79" name="Changes" comment="- Added DTOs to allow creation of entities in a smoother and more natural way">
       <change afterPath="$PROJECT_DIR$/src/main/scala/utils/DateTimeUtils.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/AccountController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/AccountController.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/BookingController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/BookingController.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/entities/Account.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/entities/Account.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/AccountRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/AccountRepository.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,7 +135,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688386424077</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="- Added DTOs to allow creation of entities in a smoother and more natural way">
+      <created>1688466484636</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1688466484636</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -161,16 +162,12 @@
     <MESSAGE value="- Created controllers and repositories for all the entities&#10;&#10;- Mapped all the routes on Main" />
     <MESSAGE value="- Completed basic CRUD mapping between entities and db tables" />
     <MESSAGE value="- Changed entities id type from Int to Option[Int] in order to perform CREATE operation without passing the id.&#10;- Added check for duplicates color and room names when saving a new entity to db." />
-    <option name="LAST_COMMIT_MESSAGE" value="- Changed entities id type from Int to Option[Int] in order to perform CREATE operation without passing the id.&#10;- Added check for duplicates color and room names when saving a new entity to db." />
+    <MESSAGE value="- Added DTOs to allow creation of entities in a smoother and more natural way" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Added DTOs to allow creation of entities in a smoother and more natural way" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/src/main/scala/repositories/AccountRepository.scala</url>
-          <line>40</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala</url>
           <line>27</line>

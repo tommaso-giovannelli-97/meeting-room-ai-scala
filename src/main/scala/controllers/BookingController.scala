@@ -24,17 +24,6 @@ object BookingJsonProtocol extends DefaultJsonProtocol {
     }
   }
   implicit val bookingFormat: RootJsonFormat[Booking] = jsonFormat10(Booking)
-}
-
-object BookingDTOJsonProtocol extends DefaultJsonProtocol {
-  implicit object TimestampFormat extends JsonFormat[Timestamp] {
-    def write(obj: Timestamp): JsValue = JsString(obj.toString)
-
-    def read(json: JsValue): Timestamp = json match {
-      case JsString(s) => Timestamp.valueOf(s)
-      case _ => throw new DeserializationException("Expected Timestamp as JsString")
-    }
-  }
   implicit val bookingDTOFormat: RootJsonFormat[BookingDTO] = jsonFormat7(BookingDTO)
 }
 
@@ -45,7 +34,6 @@ object BookingController {
 
   import SprayJsonSupport._
   import BookingJsonProtocol._
-  import BookingDTOJsonProtocol._
 
   val baseUrl = "api" / "v1"
 
@@ -76,7 +64,7 @@ object BookingController {
       }
     }
 
-/*  val getAllRoute =
+  val getAllRoute =
     pathPrefix(baseUrl) {
       path("bookings") {
         get {
@@ -84,7 +72,7 @@ object BookingController {
           complete(getAllResult)
         }
       }
-    }*/
+    }
 
   // Update
   val updateRoute =
@@ -111,5 +99,5 @@ object BookingController {
     }
 
   //~ getAllRoute
-  val bookingRoutes: Route = createRoute ~ getByIdRoute ~ updateRoute ~ deleteRoute
+  val bookingRoutes: Route = createRoute ~ getAllRoute ~ getByIdRoute ~ updateRoute ~ deleteRoute
 }

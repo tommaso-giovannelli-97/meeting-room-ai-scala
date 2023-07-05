@@ -2,6 +2,7 @@ package controllers
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
+//import controllers.AccountDTOJsonProtocol.jsonFormat3
 //import akka.http.scaladsl.model.{HttpResponse, StatusCodes}
 import akka.http.scaladsl.model._
 import akka.http.scaladsl.server.Directives._
@@ -10,17 +11,14 @@ import akka.stream.ActorMaterializer
 import dtos.AccountDTO
 import entities.Account
 import repositories.AccountRepository
-//import spray.json.{DefaultJsonProtocol, RootJsonFormat}
-import spray.json._
+import spray.json.{DefaultJsonProtocol, RootJsonFormat}
 
 import scala.concurrent.ExecutionContext
 
 object AccountJsonProtocol extends DefaultJsonProtocol {
   implicit val accountFormat: RootJsonFormat[Account] = jsonFormat4(Account)
-}
-
-object AccountDTOJsonProtocol extends DefaultJsonProtocol {
   implicit val accountDTOFormat: RootJsonFormat[AccountDTO] = jsonFormat3(AccountDTO)
+
 }
 
 object AccountController {
@@ -30,7 +28,7 @@ object AccountController {
 
   import SprayJsonSupport._ // Import the SprayJsonSupport trait
   import AccountJsonProtocol._
-  import AccountDTOJsonProtocol._
+  //import AccountDTOJsonProtocol._
 
   val baseUrl = "api" / "v1"
 
@@ -63,16 +61,16 @@ object AccountController {
       }
     }
 
-  /*val getAllRoute =
+  val getAllRoute =
     pathPrefix(baseUrl) {
       path("accounts") {
         get {
-          val getAllResult = AccountRepository.getAll()
+          val getAllResult: Seq[Account] = AccountRepository.getAll()
 
           complete(getAllResult)
         }
       }
-    }*/
+    }
 
   // Update
   val updateRoute =
@@ -98,8 +96,8 @@ object AccountController {
       }
     }
 
-  val accountRoutes: Route = createRoute ~ getByIdRoute  ~ updateRoute ~ deleteRoute
-  //  ~ getAllRoute
+  val accountRoutes: Route = createRoute  ~ getAllRoute ~ getByIdRoute  ~ updateRoute ~ deleteRoute
+
 
 }
 
