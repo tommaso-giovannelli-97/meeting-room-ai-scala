@@ -6,12 +6,13 @@ import akka.http.scaladsl.model.{HttpResponse, StatusCodes}
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
-import dtos.BookingDTO
+import dtos.{BookingDTO, BookingOccupationDTO}
 import entities.Booking
 import repositories.BookingRepository
 import spray.json.{DefaultJsonProtocol, DeserializationException, JsString, JsValue, JsonFormat, RootJsonFormat}
 
 import java.sql.Timestamp
+import java.time.LocalDate
 import scala.concurrent.ExecutionContext
 
 object BookingJsonProtocol extends DefaultJsonProtocol {
@@ -23,8 +24,19 @@ object BookingJsonProtocol extends DefaultJsonProtocol {
       case _ => throw new DeserializationException("Expected Timestamp as JsString")
     }
   }
+
+  implicit object LocalDateFormat extends JsonFormat[LocalDate] {
+    def write(obj: LocalDate): JsValue = JsString(obj.toString)
+
+    def read(json: JsValue): LocalDate = json match {
+      case JsString(s) => LocalDate.parse(s)
+      case _ => throw new DeserializationException("Expected LocalDate as JsString")
+    }
+  }
+
   implicit val bookingFormat: RootJsonFormat[Booking] = jsonFormat10(Booking)
   implicit val bookingDTOFormat: RootJsonFormat[BookingDTO] = jsonFormat7(BookingDTO)
+  implicit val bookingOccupationDTOFormat: RootJsonFormat[BookingOccupationDTO] = jsonFormat4(BookingOccupationDTO)
 }
 
 object BookingController {
@@ -106,6 +118,16 @@ object BookingController {
       }
     }
 
+  val getRoomOccupationBetweenDatesRoute =
+    pathPrefix(baseUrl) {
+      path("bookings" / Segment / Segment / Segment) { (roomName, startDate, endDate) =>
+        get {
+          val occupationResult: Seq[BookingOccupationDTO] = BookingRepository.getRoomOccupationBetweenDates(roomName, startDate, endDate)
+          complete(occupationResult)
+        }
+      }
+    }
+
   // Update
   val updateRoute =
     pathPrefix(baseUrl) {
@@ -132,5 +154,5 @@ object BookingController {
 
   //~ getAllRoute
   val bookingRoutes: Route = createRoute ~ getAllRoute ~ getUpcomingRoute ~ getByDateRoute ~
-    getByIdRoute ~ getAllByAccountIdRoute  ~ updateRoute ~ deleteRoute
+    getRoomOccupationBetweenDatesRoute ~ getByIdRoute ~ getAllByAccountIdRoute  ~ updateRoute ~ deleteRoute
 }

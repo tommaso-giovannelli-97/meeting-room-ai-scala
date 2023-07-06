@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac738f0a-f192-4e1c-bce2-c81bd816dc79" name="Changes" comment="- Added getAllBookingsByAccountId endpoint in BookingController&#10;- Added getUpcomingBookings endpoint in BookingController">
+    <list default="true" id="ac738f0a-f192-4e1c-bce2-c81bd816dc79" name="Changes" comment="- Added getByDate endpoint in BookingController&#10;- Added getAvailableColors endpoint in ColorController">
+      <change afterPath="$PROJECT_DIR$/src/main/scala/dtos/BookingOccupationDTO.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/BookingController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/BookingController.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/ColorController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/ColorController.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/ColorRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/ColorRepository.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/utils/DateTimeUtils.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/utils/DateTimeUtils.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -166,7 +165,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688627696009</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="- Added getByDate endpoint in BookingController&#10;- Added getAvailableColors endpoint in ColorController">
+      <created>1688646303685</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1688646303685</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -190,20 +196,16 @@
     <MESSAGE value="- Solved bug in getAllRoutes that was preventing the application to start" />
     <MESSAGE value="- Extended usage of DTOs for creation to Equipment, Room and RoomSetup entities" />
     <MESSAGE value="- Added getAllBookingsByAccountId endpoint in BookingController&#10;- Added getUpcomingBookings endpoint in BookingController" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Added getAllBookingsByAccountId endpoint in BookingController&#10;- Added getUpcomingBookings endpoint in BookingController" />
+    <MESSAGE value="- Added getByDate endpoint in BookingController&#10;- Added getAvailableColors endpoint in ColorController" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Added getByDate endpoint in BookingController&#10;- Added getAvailableColors endpoint in ColorController" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala</url>
-          <line>29</line>
+          <line>30</line>
           <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/src/main/scala/repositories/ColorRepository.scala</url>
-          <line>48</line>
-          <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/repositories/ColorRepository.scala</url>
@@ -226,29 +228,19 @@
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/src/main/scala/controllers/BookingController.scala</url>
-          <line>57</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala</url>
-          <line>55</line>
+          <line>56</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/utils/DateTimeUtils.scala</url>
-          <line>19</line>
+          <line>34</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/src/main/scala/repositories/ColorRepository.scala</url>
-          <line>52</line>
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/src/main/scala/repositories/ColorRepository.scala</url>
-          <line>54</line>
-          <option name="timeStamp" value="21" />
+          <url>file://$PROJECT_DIR$/src/main/scala/controllers/BookingController.scala</url>
+          <line>125</line>
+          <option name="timeStamp" value="24" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
