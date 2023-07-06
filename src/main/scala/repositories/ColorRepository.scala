@@ -49,6 +49,12 @@ object ColorRepository {
     exec(colors.result)
   }
 
+  def getAvailable() : Seq[Color] = {
+    val allRoomsColorIds = RoomRepository.getAll().map(_.colorId)
+    val query = colors.filterNot(_.id.inSet(allRoomsColorIds))
+    exec(query.result)
+  }
+
   def update(color: Color): Color = {
     val query = colors.filter(_.id === color.id).update(color)
     exec(query)

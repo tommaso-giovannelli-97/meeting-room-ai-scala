@@ -4,6 +4,7 @@ import com.typesafe.config.ConfigFactory
 import dtos.BookingDTO
 import entities.{Booking, Bookings}
 import slick.jdbc.PostgresProfile.api._
+import utils.DateTimeUtils
 
 import java.sql.Timestamp
 import scala.concurrent.Await
@@ -48,6 +49,16 @@ object BookingRepository {
   def getUpcoming() : Seq[Booking] = {
     val currentDateTime = new Timestamp(System.currentTimeMillis())
     val query= bookings.filter(_.fromTime > currentDateTime)
+    exec(query.result)
+  }
+
+  def getByDate(stringDate : String): Seq[Booking] = {
+    val date : Timestamp = DateTimeUtils.convertStringToTimestamp(stringDate).get
+    val startDayDate = DateTimeUtils.toBeginningOfDay(date)
+    val endDayDate = DateTimeUtils.toEndOfDay(date)
+
+    //val dateDay = date.toLocalDateTime.toLocalDate
+    val query = bookings.filter(b => b.fromTime >=startDayDate && b.fromTime<=endDayDate)
     exec(query.result)
   }
 

@@ -68,6 +68,16 @@ object ColorController {
       }
     }
 
+  val getAvailableRoute =
+    pathPrefix(baseUrl) {
+      path("colors" / "available") {
+        get {
+          val getAvailableResult = ColorRepository.getAvailable()
+          complete(getAvailableResult)
+        }
+      }
+    }
+
   // Update
   val updateRoute =
     pathPrefix(baseUrl) {
@@ -92,5 +102,5 @@ object ColorController {
       }
     }
 
-  val colorRoutes: Route = createRoute ~ getByIdRoute ~ getAllRoute ~ updateRoute ~ deleteRoute
+  val colorRoutes: Route = createRoute ~ getAvailableRoute ~ getByIdRoute ~ getAllRoute ~ updateRoute ~ deleteRoute
 }

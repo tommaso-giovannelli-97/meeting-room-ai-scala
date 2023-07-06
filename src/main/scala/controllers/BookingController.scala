@@ -94,6 +94,18 @@ object BookingController {
       }
     }
 
+  val getByDateRoute =
+    pathPrefix(baseUrl) {
+      path("bookings" / "date") {
+        parameters("date") { (date) =>
+          get {
+            val bookings: Seq[Booking] = BookingRepository.getByDate(date)
+            complete(bookings)
+          }
+        }
+      }
+    }
+
   // Update
   val updateRoute =
     pathPrefix(baseUrl) {
@@ -119,6 +131,6 @@ object BookingController {
     }
 
   //~ getAllRoute
-  val bookingRoutes: Route = createRoute ~ getAllRoute ~ getUpcomingRoute ~ getByIdRoute ~
-    getAllByAccountIdRoute  ~ updateRoute ~ deleteRoute
+  val bookingRoutes: Route = createRoute ~ getAllRoute ~ getUpcomingRoute ~ getByDateRoute ~
+    getByIdRoute ~ getAllByAccountIdRoute  ~ updateRoute ~ deleteRoute
 }
