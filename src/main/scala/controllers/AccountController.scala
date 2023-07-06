@@ -2,8 +2,6 @@ package controllers
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
-//import controllers.AccountDTOJsonProtocol.jsonFormat3
-//import akka.http.scaladsl.model.{HttpResponse, StatusCodes}
 import akka.http.scaladsl.model._
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
@@ -28,7 +26,6 @@ object AccountController {
 
   import SprayJsonSupport._ // Import the SprayJsonSupport trait
   import AccountJsonProtocol._
-  //import AccountDTOJsonProtocol._
 
   val baseUrl = "api" / "v1"
 

@@ -5,6 +5,7 @@ import dtos.BookingDTO
 import entities.{Booking, Bookings}
 import slick.jdbc.PostgresProfile.api._
 
+import java.sql.Timestamp
 import scala.concurrent.Await
 import scala.concurrent.duration.DurationInt
 
@@ -37,6 +38,17 @@ object BookingRepository {
 
   def getAll(): Seq[Booking] = {
     exec(bookings.result)
+  }
+
+  def getAllByAccountId(accountId : String) : Seq[Booking] = {
+    val query = bookings.filter(_.accountId === accountId)
+    exec(query.result)
+  }
+
+  def getUpcoming() : Seq[Booking] = {
+    val currentDateTime = new Timestamp(System.currentTimeMillis())
+    val query= bookings.filter(_.fromTime > currentDateTime)
+    exec(query.result)
   }
 
   def update(booking: Booking): Booking = {

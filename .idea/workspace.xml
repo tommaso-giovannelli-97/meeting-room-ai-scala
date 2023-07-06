@@ -4,17 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac738f0a-f192-4e1c-bce2-c81bd816dc79" name="Changes" comment="- Solved bug in getAllRoutes that was preventing the application to start">
-      <change afterPath="$PROJECT_DIR$/src/main/scala/dtos/EquipmentDTO.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/dtos/RoomDTO.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/dtos/RoomSetupDTO.scala" afterDir="false" />
+    <list default="true" id="ac738f0a-f192-4e1c-bce2-c81bd816dc79" name="Changes" comment="- Extended usage of DTOs for creation to Equipment, Room and RoomSetup entities">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/EquipmentController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/EquipmentController.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/RoomController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/RoomController.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/RoomSetupController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/RoomSetupController.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/EquipmentRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/EquipmentRepository.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/RoomRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/RoomRepository.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/RoomSetupRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/RoomSetupRepository.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/AccountController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/AccountController.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/BookingController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/BookingController.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,7 +150,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688551238717</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="- Extended usage of DTOs for creation to Equipment, Room and RoomSetup entities">
+      <created>1688562871121</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1688562871121</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -178,14 +179,15 @@
     <MESSAGE value="- Changed entities id type from Int to Option[Int] in order to perform CREATE operation without passing the id.&#10;- Added check for duplicates color and room names when saving a new entity to db." />
     <MESSAGE value="- Added DTOs to allow creation of entities in a smoother and more natural way" />
     <MESSAGE value="- Solved bug in getAllRoutes that was preventing the application to start" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Solved bug in getAllRoutes that was preventing the application to start" />
+    <MESSAGE value="- Extended usage of DTOs for creation to Equipment, Room and RoomSetup entities" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Extended usage of DTOs for creation to Equipment, Room and RoomSetup entities" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala</url>
-          <line>27</line>
+          <line>28</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
@@ -212,6 +214,11 @@
           <url>file://$PROJECT_DIR$/src/main/scala/repositories/AccountRepository.scala</url>
           <line>27</line>
           <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/src/main/scala/controllers/BookingController.scala</url>
+          <line>57</line>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

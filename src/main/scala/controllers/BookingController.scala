@@ -74,6 +74,26 @@ object BookingController {
       }
     }
 
+  val getAllByAccountIdRoute =
+    pathPrefix(baseUrl) {
+      path("accounts" / Segment / "bookings") { accountId =>
+        get {
+          val bookings: Seq[Booking] = BookingRepository.getAllByAccountId(accountId)
+          complete(bookings)
+        }
+      }
+    }
+
+  val getUpcomingRoute =
+    pathPrefix(baseUrl) {
+      path("bookings" / "upcoming") {
+        get {
+          val bookings: Seq[Booking] = BookingRepository.getUpcoming()
+          complete(bookings)
+        }
+      }
+    }
+
   // Update
   val updateRoute =
     pathPrefix(baseUrl) {
@@ -99,5 +119,6 @@ object BookingController {
     }
 
   //~ getAllRoute
-  val bookingRoutes: Route = createRoute ~ getAllRoute ~ getByIdRoute ~ updateRoute ~ deleteRoute
+  val bookingRoutes: Route = createRoute ~ getAllRoute ~ getUpcomingRoute ~ getByIdRoute ~
+    getAllByAccountIdRoute  ~ updateRoute ~ deleteRoute
 }
