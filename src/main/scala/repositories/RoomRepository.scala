@@ -24,7 +24,7 @@ object RoomRepository {
     Await.result(db.run(action), 2.seconds)
 
   def create(roomDTO: RoomDTO): Room = {
-    val optionRoom : Option[Room] = getByName(roomDTO.name)
+    val optionRoom : Option[Room] = getByNameIgnoreCase(roomDTO.name)
     if(optionRoom.isEmpty) {
       val room = roomDTO.toEntity()
       val query = rooms += room
@@ -42,8 +42,10 @@ object RoomRepository {
     exec(query.result.headOption)
   }
 
-  def getByName(name : String): Option[Room] = {
-    val query = rooms.filter(_.name === name)
+  def getByNameIgnoreCase(name : String): Option[Room] = {
+    //val query = rooms.filter(_.name === name)
+    //val query = rooms.filter(_.name.like(s"%${name.toLowerCase}%")
+    val query = rooms.filter(_.name.toLowerCase like name.toLowerCase)
     exec(query.result.headOption)
   }
 

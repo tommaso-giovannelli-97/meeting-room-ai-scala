@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac738f0a-f192-4e1c-bce2-c81bd816dc79" name="Changes" comment="- Started getRoomOccupationBetweenDates endpoint">
+    <list default="true" id="ac738f0a-f192-4e1c-bce2-c81bd816dc79" name="Changes" comment="- Implemented first version of getRoomOccupationBetweenDates endpoint in BookingController">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/BookingController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/BookingController.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/utils/DateTimeUtils.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/utils/DateTimeUtils.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/RoomRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/RoomRepository.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,7 +177,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688660040678</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="- Implemented first version of getRoomOccupationBetweenDates endpoint in BookingController">
+      <created>1688721704423</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1688721704423</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -204,7 +210,8 @@
     <MESSAGE value="- Added getAllBookingsByAccountId endpoint in BookingController&#10;- Added getUpcomingBookings endpoint in BookingController" />
     <MESSAGE value="- Added getByDate endpoint in BookingController&#10;- Added getAvailableColors endpoint in ColorController" />
     <MESSAGE value="- Started getRoomOccupationBetweenDates endpoint" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Started getRoomOccupationBetweenDates endpoint" />
+    <MESSAGE value="- Implemented first version of getRoomOccupationBetweenDates endpoint in BookingController" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Implemented first version of getRoomOccupationBetweenDates endpoint in BookingController" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -248,11 +255,6 @@
           <url>file://$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala</url>
           <line>87</line>
           <option name="timeStamp" value="25" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala</url>
-          <line>126</line>
-          <option name="timeStamp" value="30" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala</url>

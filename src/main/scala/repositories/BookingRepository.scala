@@ -1,13 +1,11 @@
 package repositories
 
-import com.typesafe.config.ConfigFactory
 import dtos.{BookingDTO, BookingOccupationDTO}
 import entities.{Booking, Bookings, Room}
 import slick.jdbc.PostgresProfile.api._
 import utils.DateTimeUtils
 
 import java.sql.Timestamp
-import java.time.temporal.ChronoUnit
 import scala.concurrent.Await
 import scala.concurrent.duration.DurationInt
 
@@ -58,7 +56,6 @@ object BookingRepository {
     val startDayDate = DateTimeUtils.toBeginningOfDay(date)
     val endDayDate = DateTimeUtils.toEndOfDay(date)
 
-    //val dateDay = date.toLocalDateTime.toLocalDate
     val query = bookings.filter(b => b.fromTime >=startDayDate && b.fromTime<=endDayDate)
     exec(query.result)
   }
@@ -70,9 +67,7 @@ object BookingRepository {
 
   def getRoomOccupationBetweenDates(roomName: String, startDate:String, endDate:String)
   :Seq[BookingOccupationDTO] = {
-    //TODO: Check that room with name "roomName" exists ignoring case
-    //myTableQuery.filter(_.name.like(s"%${searchString.toLowerCase}%"))
-    val optionRoom : Option[Room] = RoomRepository.getByName(roomName)
+    val optionRoom : Option[Room] = RoomRepository.getByNameIgnoreCase(roomName)
     if(optionRoom.isEmpty) {throw new Exception("Room with this name doesn't exist")}
     val startDateTimestamp : Timestamp = DateTimeUtils.toWorkDayBeginning(DateTimeUtils.convertStringToTimestamp(startDate).get)
     val endDateTimestamp : Timestamp = DateTimeUtils.toWorkDayEnd(DateTimeUtils.convertStringToTimestamp(endDate).get)
@@ -84,7 +79,6 @@ object BookingRepository {
         allOccupationSlots = allOccupationSlots.updated(slot, getUpdatedOccupationDTO(allOccupationSlots(slot)))
       }
     }
-
     allOccupationSlots
   }
 
@@ -98,8 +92,6 @@ object BookingRepository {
     val query = bookings.filter(_.id === id).delete
     exec(query)
   }
-
-
 
   //--------------Support services -------------------
  def generateBookingOccupationSlots(startDate : Timestamp, endDate: Timestamp) : Vector[BookingOccupationDTO] = {
