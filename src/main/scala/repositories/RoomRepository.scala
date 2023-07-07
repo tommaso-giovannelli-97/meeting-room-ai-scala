@@ -27,9 +27,8 @@ object RoomRepository {
     val optionRoom : Option[Room] = getByNameIgnoreCase(roomDTO.name)
     if(optionRoom.isEmpty) {
       val room = roomDTO.toEntity()
-      val query = rooms += room
+      val query = (rooms returning rooms) += room
       exec(query)
-      room
     }
     else {
       throw new Exception("A room with this name already exists.")
@@ -43,8 +42,6 @@ object RoomRepository {
   }
 
   def getByNameIgnoreCase(name : String): Option[Room] = {
-    //val query = rooms.filter(_.name === name)
-    //val query = rooms.filter(_.name.like(s"%${name.toLowerCase}%")
     val query = rooms.filter(_.name.toLowerCase like name.toLowerCase)
     exec(query.result.headOption)
   }

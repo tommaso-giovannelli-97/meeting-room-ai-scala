@@ -25,10 +25,16 @@ object BookingRepository {
     Await.result(db.run(action), 2.seconds)
 
   def create(bookingDTO: BookingDTO): Booking = {
+    val optionRoom: Option[Room] = RoomRepository.getById(bookingDTO.roomId)
+    if (optionRoom.isEmpty) {
+      throw new Exception("Room with this id doesn't exist")
+    }
+    if (isBookingOverlapping(bookingDTO.roomId, bookingDTO.fromTime, bookingDTO.untilTime)) {
+      throw new Exception("Overlapping Booking")
+    }
     val booking = bookingDTO.toEntity()
-    val query = bookings += booking
+    val query = (bookings returning bookings) += booking
     exec(query)
-    booking
   }
 
   def getById(id: Int): Option[Booking] = {
@@ -80,6 +86,13 @@ object BookingRepository {
       }
     }
     allOccupationSlots
+  }
+
+  def isBookingOverlapping(roomId: Int, startDate: Timestamp, endDate:Timestamp) : Boolean = {
+    val query = bookings.filter(b => b.roomId === roomId &&( b.fromTime >= startDate && b.fromTime <= endDate) ||
+      (b.untilTime >= startDate && b.untilTime <= endDate) || (b.fromTime <= startDate && b.untilTime >= endDate))
+    val overlappingBookings = exec(query.result)
+    overlappingBookings.nonEmpty
   }
 
   def update(booking: Booking): Booking = {

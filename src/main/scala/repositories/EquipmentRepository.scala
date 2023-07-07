@@ -24,9 +24,8 @@ object EquipmentRepository {
 
   def create(equipmentDTO: EquipmentDTO): Equipment = {
     val equipment = equipmentDTO.toEntity()
-    val query = equipments += equipment
+    val query = (equipments returning equipments) += equipment
     exec(query)
-    equipment
   }
 
   def getById(id: Int): Option[Equipment] = {

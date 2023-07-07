@@ -28,8 +28,7 @@ object AccountRepository {
     val account = accountDTO.toEntity()
     //val query = accounts += account
     val query = (accounts returning accounts) += account
-    val created : Account = exec(query)
-    created
+    exec(query)
   }
 
   def getById(id: String): Option[Account] = {

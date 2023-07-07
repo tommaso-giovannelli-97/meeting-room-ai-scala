@@ -25,9 +25,8 @@ object RoomSetupRepository {
 
   def create(roomSetupDTO: RoomSetupDTO): RoomSetup = {
     val roomSetup = roomSetupDTO.toEntity()
-    val query = roomSetups += roomSetup
+    val query = (roomSetups returning roomSetups) += roomSetup
     exec(query)
-    roomSetup
   }
 
   def getById(id: Int): Option[RoomSetup] = {

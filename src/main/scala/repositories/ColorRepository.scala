@@ -25,9 +25,8 @@ object ColorRepository {
   def create(color: Color): Color = {
     val optionColor : Option[Color] = getByName(color.name)
     if(optionColor.isEmpty) {
-      val query = colors += color
+      val query = (colors returning colors) += color
       exec(query)
-      color
     }
     else{
       throw new Exception("This color already exists.")

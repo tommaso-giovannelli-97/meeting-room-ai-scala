@@ -4,10 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac738f0a-f192-4e1c-bce2-c81bd816dc79" name="Changes" comment="- Implemented first version of getRoomOccupationBetweenDates endpoint in BookingController">
+    <list default="true" id="ac738f0a-f192-4e1c-bce2-c81bd816dc79" name="Changes" comment="- Updated getByName query to be case-insensitive">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/AccountRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/AccountRepository.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/ColorRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/ColorRepository.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/EquipmentRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/EquipmentRepository.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/RoomRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/RoomRepository.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/RoomSetupRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/RoomSetupRepository.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,7 +188,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688721704423</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="- Updated getByName query to be case-insensitive">
+      <created>1688734505286</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1688734505286</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -211,16 +222,12 @@
     <MESSAGE value="- Added getByDate endpoint in BookingController&#10;- Added getAvailableColors endpoint in ColorController" />
     <MESSAGE value="- Started getRoomOccupationBetweenDates endpoint" />
     <MESSAGE value="- Implemented first version of getRoomOccupationBetweenDates endpoint in BookingController" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Implemented first version of getRoomOccupationBetweenDates endpoint in BookingController" />
+    <MESSAGE value="- Updated getByName query to be case-insensitive" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Updated getByName query to be case-insensitive" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala</url>
-          <line>30</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/repositories/ColorRepository.scala</url>
           <line>25</line>
@@ -242,24 +249,14 @@
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala</url>
-          <line>56</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/utils/DateTimeUtils.scala</url>
           <line>34</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala</url>
-          <line>87</line>
-          <option name="timeStamp" value="25" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala</url>
-          <line>74</line>
-          <option name="timeStamp" value="31" />
+          <line>27</line>
+          <option name="timeStamp" value="33" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
