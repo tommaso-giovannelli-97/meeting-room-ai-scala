@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac738f0a-f192-4e1c-bce2-c81bd816dc79" name="Changes" comment="- Added getByDate endpoint in BookingController&#10;- Added getAvailableColors endpoint in ColorController">
-      <change afterPath="$PROJECT_DIR$/src/main/scala/dtos/BookingOccupationDTO.scala" afterDir="false" />
+    <list default="true" id="ac738f0a-f192-4e1c-bce2-c81bd816dc79" name="Changes" comment="- Started getRoomOccupationBetweenDates endpoint">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/BookingController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/BookingController.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala" afterDir="false" />
@@ -172,7 +171,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688646303685</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="- Started getRoomOccupationBetweenDates endpoint">
+      <created>1688660040678</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1688660040678</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -197,7 +203,8 @@
     <MESSAGE value="- Extended usage of DTOs for creation to Equipment, Room and RoomSetup entities" />
     <MESSAGE value="- Added getAllBookingsByAccountId endpoint in BookingController&#10;- Added getUpcomingBookings endpoint in BookingController" />
     <MESSAGE value="- Added getByDate endpoint in BookingController&#10;- Added getAvailableColors endpoint in ColorController" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Added getByDate endpoint in BookingController&#10;- Added getAvailableColors endpoint in ColorController" />
+    <MESSAGE value="- Started getRoomOccupationBetweenDates endpoint" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Started getRoomOccupationBetweenDates endpoint" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -238,9 +245,19 @@
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/src/main/scala/controllers/BookingController.scala</url>
-          <line>125</line>
-          <option name="timeStamp" value="24" />
+          <url>file://$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala</url>
+          <line>87</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala</url>
+          <line>126</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala</url>
+          <line>74</line>
+          <option name="timeStamp" value="31" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

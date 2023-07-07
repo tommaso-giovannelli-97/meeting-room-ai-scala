@@ -70,15 +70,22 @@ object BookingRepository {
 
   def getRoomOccupationBetweenDates(roomName: String, startDate:String, endDate:String)
   :Seq[BookingOccupationDTO] = {
-    //TODO: Check that room with name "roomName" exists
+    //TODO: Check that room with name "roomName" exists ignoring case
     //myTableQuery.filter(_.name.like(s"%${searchString.toLowerCase}%"))
     val optionRoom : Option[Room] = RoomRepository.getByName(roomName)
     if(optionRoom.isEmpty) {throw new Exception("Room with this name doesn't exist")}
     val startDateTimestamp : Timestamp = DateTimeUtils.toWorkDayBeginning(DateTimeUtils.convertStringToTimestamp(startDate).get)
     val endDateTimestamp : Timestamp = DateTimeUtils.toWorkDayEnd(DateTimeUtils.convertStringToTimestamp(endDate).get)
     val bookingsBetweenDates :Seq[Booking] = getByRoomIdBetweenDates(optionRoom.get.id.get, startDateTimestamp, endDateTimestamp )
-    generateBookingOccupationSlots(startDateTimestamp, endDateTimestamp)
+    var allOccupationSlots : Vector[BookingOccupationDTO] = generateBookingOccupationSlots(startDateTimestamp, endDateTimestamp)
+    for (booking <- bookingsBetweenDates) {
+      val bookingSlots: Range.Inclusive = getBookingOccupationSlots(startDateTimestamp, booking.fromTime, booking.untilTime)
+      for (slot <- bookingSlots) {
+        allOccupationSlots = allOccupationSlots.updated(slot, getUpdatedOccupationDTO(allOccupationSlots(slot)))
+      }
+    }
 
+    allOccupationSlots
   }
 
   def update(booking: Booking): Booking = {
@@ -95,8 +102,8 @@ object BookingRepository {
 
 
   //--------------Support services -------------------
- def generateBookingOccupationSlots(startDate : Timestamp, endDate: Timestamp) : Seq[BookingOccupationDTO] = {
-   var occupationSlots : Seq[BookingOccupationDTO] = Seq()
+ def generateBookingOccupationSlots(startDate : Timestamp, endDate: Timestamp) : Vector[BookingOccupationDTO] = {
+   var occupationSlots : Vector[BookingOccupationDTO] = Vector()
 
    for (i <- 0 until DateTimeUtils.getDaysDifferencebetweenDates(startDate, endDate) + 1) {
      for (j <- 0 until 36) {
@@ -107,7 +114,6 @@ object BookingRepository {
 
  }
 
-
   def generateOccupationSlot(startDate: Timestamp, daysDifference: Int, slotNumber: Int): BookingOccupationDTO = {
     var fromDate: Timestamp = DateTimeUtils.addDaysToTimestamp(startDate, daysDifference)
     fromDate = DateTimeUtils.addMinutesToTimestamp(fromDate, slotNumber*15)
@@ -115,6 +121,18 @@ object BookingRepository {
 
     BookingOccupationDTO(fromDate.toLocalDateTime.toLocalDate
       ,fromDate.getTime.toString, toDate.getTime.toString, false)
+  }
+
+  def getBookingOccupationSlots(startDate: Timestamp, bookingStartTime: Timestamp, bookingEndTime: Timestamp): Range.Inclusive = {
+    val startIndex: Int = (DateTimeUtils.getDaysDifferencebetweenDates(startDate, bookingStartTime) * 36) +
+      DateTimeUtils.getMinutesDifferenceBetweenDates(startDate, bookingStartTime) / 15
+
+    val endIndex: Int = startIndex + (DateTimeUtils.getMinutesDifferenceBetweenDates(bookingStartTime, bookingEndTime) / 15 )
+    startIndex to endIndex
+  }
+
+  def getUpdatedOccupationDTO(bookingOccupationDTO: BookingOccupationDTO) : BookingOccupationDTO = {
+    bookingOccupationDTO.copy(isOccupied = !bookingOccupationDTO.isOccupied)
   }
 
 }

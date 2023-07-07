@@ -76,4 +76,10 @@ object DateTimeUtils {
     val endDate = endTimestamp.toLocalDateTime.toLocalDate
     ChronoUnit.DAYS.between(startDate, endDate).toInt
   }
+
+  def getMinutesDifferenceBetweenDates(startTimestamp: Timestamp, endTimestamp: Timestamp): Int = {
+    val startTime = startTimestamp.toLocalDateTime.toLocalTime
+    val endTime = endTimestamp.toLocalDateTime.toLocalTime
+    ChronoUnit.MINUTES.between(startTime, endTime).toInt
+  }
 }

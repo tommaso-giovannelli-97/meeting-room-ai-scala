@@ -30,7 +30,7 @@ object BookingJsonProtocol extends DefaultJsonProtocol {
 
     def read(json: JsValue): LocalDate = json match {
       case JsString(s) => LocalDate.parse(s)
-      case _ => throw new DeserializationException("Expected LocalDate as JsString")
+      case _ => throw DeserializationException("Expected LocalDate as JsString")
     }
   }
 
