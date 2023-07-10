@@ -80,8 +80,14 @@ object BookingController {
     pathPrefix(baseUrl) {
       path("bookings") {
         get {
-          val getAllResult = BookingRepository.getAll()
-          complete(getAllResult)
+          parameters("page".as[Int].?, "size".as[Int].?) {
+            (pageOpt, sizeOpt) =>
+            val page = pageOpt.getOrElse(0)
+            val size = sizeOpt.getOrElse(5)
+
+            val getAllResult = BookingRepository.getAll(page, size)
+            complete(getAllResult)
+          }
         }
       }
     }
@@ -90,8 +96,14 @@ object BookingController {
     pathPrefix(baseUrl) {
       path("accounts" / Segment / "bookings") { accountId =>
         get {
-          val bookings: Seq[Booking] = BookingRepository.getAllByAccountId(accountId)
-          complete(bookings)
+          parameters("page".as[Int].?, "size".as[Int].?) {
+            (pageOpt, sizeOpt) =>
+              val page = pageOpt.getOrElse(0)
+              val size = sizeOpt.getOrElse(5)
+
+              val bookings: Seq[Booking] = BookingRepository.getAllByAccountId(accountId, page, size)
+              complete(bookings)
+          }
         }
       }
     }
@@ -100,8 +112,14 @@ object BookingController {
     pathPrefix(baseUrl) {
       path("bookings" / "upcoming") {
         get {
-          val bookings: Seq[Booking] = BookingRepository.getUpcoming()
-          complete(bookings)
+          parameters("page".as[Int].?, "size".as[Int].?) {
+            (pageOpt, sizeOpt) =>
+              val page = pageOpt.getOrElse(0)
+              val size = sizeOpt.getOrElse(5)
+
+              val bookings: Seq[Booking] = BookingRepository.getUpcoming(page, size)
+              complete(bookings)
+          }
         }
       }
     }
@@ -111,8 +129,14 @@ object BookingController {
       path("bookings" / "date") {
         parameters("date") { (date) =>
           get {
-            val bookings: Seq[Booking] = BookingRepository.getByDate(date)
-            complete(bookings)
+            parameters("page".as[Int].?, "size".as[Int].?) {
+              (pageOpt, sizeOpt) =>
+                val page = pageOpt.getOrElse(0)
+                val size = sizeOpt.getOrElse(5)
+
+                val bookings: Seq[Booking] = BookingRepository.getByDate(date, page, size)
+                complete(bookings)
+            }
           }
         }
       }

@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac738f0a-f192-4e1c-bce2-c81bd816dc79" name="Changes" comment="- Updated getByName query to be case-insensitive">
+    <list default="true" id="ac738f0a-f192-4e1c-bce2-c81bd816dc79" name="Changes" comment="- Made CREATE endpoint of all entities return the just created entity instead of the one passed in the request body&#10;&#10;- Made CREATE endpoint in BookingController check if the booking is overlapping with other bookings already made for that room">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/AccountRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/AccountRepository.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/BookingController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/BookingController.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/RoomController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/RoomController.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/ColorRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/ColorRepository.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/EquipmentRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/EquipmentRepository.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/RoomRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/RoomRepository.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/RoomSetupRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/RoomSetupRepository.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -195,7 +192,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688734505286</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="- Made CREATE endpoint of all entities return the just created entity instead of the one passed in the request body&#10;&#10;- Made CREATE endpoint in BookingController check if the booking is overlapping with other bookings already made for that room">
+      <created>1688744133528</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1688744133528</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -223,7 +227,8 @@
     <MESSAGE value="- Started getRoomOccupationBetweenDates endpoint" />
     <MESSAGE value="- Implemented first version of getRoomOccupationBetweenDates endpoint in BookingController" />
     <MESSAGE value="- Updated getByName query to be case-insensitive" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Updated getByName query to be case-insensitive" />
+    <MESSAGE value="- Made CREATE endpoint of all entities return the just created entity instead of the one passed in the request body&#10;&#10;- Made CREATE endpoint in BookingController check if the booking is overlapping with other bookings already made for that room" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Made CREATE endpoint of all entities return the just created entity instead of the one passed in the request body&#10;&#10;- Made CREATE endpoint in BookingController check if the booking is overlapping with other bookings already made for that room" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -240,7 +245,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/controllers/RoomController.scala</url>
-          <line>47</line>
+          <line>48</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
@@ -257,6 +262,11 @@
           <url>file://$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala</url>
           <line>27</line>
           <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala</url>
+          <line>100</line>
+          <option name="timeStamp" value="35" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

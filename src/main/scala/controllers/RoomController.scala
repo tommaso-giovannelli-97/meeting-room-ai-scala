@@ -6,9 +6,10 @@ import akka.http.scaladsl.model.{HttpResponse, StatusCodes}
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
+import controllers.BookingJsonProtocol.jsonFormat10
 import dtos.RoomDTO
-import entities.Room
-import repositories.RoomRepository
+import entities.{Booking, Room}
+import repositories.{BookingRepository, RoomRepository}
 import spray.json.{DefaultJsonProtocol, DeserializationException, JsString, JsValue, JsonFormat, RootJsonFormat}
 
 import java.sql.Timestamp
@@ -23,7 +24,7 @@ object RoomJsonProtocol extends DefaultJsonProtocol {
       case _ => throw new DeserializationException("Expected Timestamp as JsString")
     }
   }
-
+  implicit val bookingFormat: RootJsonFormat[Booking] = jsonFormat10(Booking)
   implicit val roomFormat: RootJsonFormat[Room] = jsonFormat6(Room)
   implicit val roomDTOFormat: RootJsonFormat[RoomDTO] = jsonFormat3(RoomDTO)
 }
@@ -52,6 +53,28 @@ object RoomController {
               case ex: Exception =>
                 complete(StatusCodes.BadRequest, s"Error occurred: ${ex.getMessage}")
             }
+          }
+        }
+      }
+    }
+
+  val getAllBookingsByRoomIdRoute =
+    pathPrefix(baseUrl) {
+      path("rooms" / Segment / "bookings") { id =>
+        get {
+          parameters("page".as[Int].?, "size".as[Int].?) {
+            (pageOpt, sizeOpt) =>
+              val page = pageOpt.getOrElse(0)
+              val size = sizeOpt.getOrElse(5)
+
+              val getByIdResult: Option[Room] = RoomRepository.getById(id.toInt)
+              getByIdResult match {
+                case Some(room) => {
+                  val bookings = BookingRepository.getByRoomId(id.toInt, page, size)
+                  complete(bookings)}
+
+                case None => complete(HttpResponse(StatusCodes.NotFound))
+              }
           }
         }
       }
@@ -105,5 +128,5 @@ object RoomController {
       }
     }
 
-  val roomRoutes: Route = createRoute ~ getByIdRoute ~ getAllRoute ~ updateRoute ~ deleteRoute
+  val roomRoutes: Route = createRoute ~ getAllBookingsByRoomIdRoute ~ getByIdRoute ~ getAllRoute ~ updateRoute ~ deleteRoute
 }

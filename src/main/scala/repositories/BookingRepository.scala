@@ -42,27 +42,33 @@ object BookingRepository {
     exec(query.result.headOption)
   }
 
-  def getAll(): Seq[Booking] = {
-    exec(bookings.result)
-  }
-
-  def getAllByAccountId(accountId : String) : Seq[Booking] = {
-    val query = bookings.filter(_.accountId === accountId)
+  def getAll(page:Int, size:Int): Seq[Booking] = {
+    val query = bookings.drop(page * size).take(size)
     exec(query.result)
   }
 
-  def getUpcoming() : Seq[Booking] = {
+  def getAllByAccountId(accountId : String, page:Int, size:Int) : Seq[Booking] = {
+    val query = bookings.filter(_.accountId === accountId).drop(page * size).take(size)
+    exec(query.result)
+  }
+
+  def getUpcoming(page:Int, size:Int) : Seq[Booking] = {
     val currentDateTime = new Timestamp(System.currentTimeMillis())
-    val query= bookings.filter(_.fromTime > currentDateTime)
+    val query= bookings.filter(_.fromTime > currentDateTime).drop(page * size).take(size)
     exec(query.result)
   }
 
-  def getByDate(stringDate : String): Seq[Booking] = {
+  def getByDate(stringDate : String, page:Int, size:Int): Seq[Booking] = {
     val date : Timestamp = DateTimeUtils.convertStringToTimestamp(stringDate).get
     val startDayDate = DateTimeUtils.toBeginningOfDay(date)
     val endDayDate = DateTimeUtils.toEndOfDay(date)
 
-    val query = bookings.filter(b => b.fromTime >=startDayDate && b.fromTime<=endDayDate)
+    val query = bookings.filter(b => b.fromTime >=startDayDate && b.fromTime<=endDayDate).drop(page * size).take(size)
+    exec(query.result)
+  }
+
+  def getByRoomId(roomId: Int, page:Int, size:Int): Seq[Booking] = {
+    val query = bookings.filter(b => b.roomId === roomId).drop(page * size).take(size)
     exec(query.result)
   }
 
