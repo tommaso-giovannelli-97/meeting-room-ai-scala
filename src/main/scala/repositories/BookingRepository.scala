@@ -2,6 +2,7 @@ package repositories
 
 import dtos.{BookingDTO, BookingOccupationDTO}
 import entities.{Booking, Bookings, Room}
+import exceptions.NotFoundException
 import slick.jdbc.PostgresProfile.api._
 import utils.DateTimeUtils
 
@@ -48,8 +49,13 @@ object BookingRepository {
   }
 
   def getAllByAccountId(accountId : String, page:Int, size:Int) : Seq[Booking] = {
-    val query = bookings.filter(_.accountId === accountId).drop(page * size).take(size)
-    exec(query.result)
+    val account = AccountRepository.getById(accountId)
+    account match {
+      case None => throw new NotFoundException("Account with given id doesn't exist")
+      case Some(_) =>
+        val query = bookings.filter(_.accountId === accountId).drop(page * size).take(size)
+        exec(query.result)
+    }
   }
 
   def getUpcoming(page:Int, size:Int) : Seq[Booking] = {

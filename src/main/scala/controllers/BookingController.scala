@@ -8,6 +8,7 @@ import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
 import dtos.{BookingDTO, BookingOccupationDTO}
 import entities.Booking
+import exceptions.NotFoundException
 import repositories.BookingRepository
 import spray.json.{DefaultJsonProtocol, DeserializationException, JsString, JsValue, JsonFormat, RootJsonFormat}
 
@@ -100,9 +101,12 @@ object BookingController {
             (pageOpt, sizeOpt) =>
               val page = pageOpt.getOrElse(0)
               val size = sizeOpt.getOrElse(5)
-
-              val bookings: Seq[Booking] = BookingRepository.getAllByAccountId(accountId, page, size)
-              complete(bookings)
+              try {
+                val bookings: Seq[Booking] = BookingRepository.getAllByAccountId(accountId, page, size)
+                complete(bookings)
+              } catch {
+                case ex : NotFoundException => complete(HttpResponse(StatusCodes.NotFound, entity = ex.getMessage))
+              }
           }
         }
       }

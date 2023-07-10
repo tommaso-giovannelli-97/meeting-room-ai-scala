@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac738f0a-f192-4e1c-bce2-c81bd816dc79" name="Changes" comment="- Made CREATE endpoint of all entities return the just created entity instead of the one passed in the request body&#10;&#10;- Made CREATE endpoint in BookingController check if the booking is overlapping with other bookings already made for that room">
+    <list default="true" id="ac738f0a-f192-4e1c-bce2-c81bd816dc79" name="Changes" comment="- Added pagination to get endpoints according to Spring Boot app&#10;- Added getAllBookingsByRoomId endpoint in RoomController (paginated)">
+      <change afterPath="$PROJECT_DIR$/src/main/scala/exceptions/NotFoundException.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/BookingController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/BookingController.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/RoomController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/RoomController.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -199,7 +199,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688744133528</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="- Added pagination to get endpoints according to Spring Boot app&#10;- Added getAllBookingsByRoomId endpoint in RoomController (paginated)">
+      <created>1689000793857</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1689000793857</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -228,7 +235,8 @@
     <MESSAGE value="- Implemented first version of getRoomOccupationBetweenDates endpoint in BookingController" />
     <MESSAGE value="- Updated getByName query to be case-insensitive" />
     <MESSAGE value="- Made CREATE endpoint of all entities return the just created entity instead of the one passed in the request body&#10;&#10;- Made CREATE endpoint in BookingController check if the booking is overlapping with other bookings already made for that room" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Made CREATE endpoint of all entities return the just created entity instead of the one passed in the request body&#10;&#10;- Made CREATE endpoint in BookingController check if the booking is overlapping with other bookings already made for that room" />
+    <MESSAGE value="- Added pagination to get endpoints according to Spring Boot app&#10;- Added getAllBookingsByRoomId endpoint in RoomController (paginated)" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Added pagination to get endpoints according to Spring Boot app&#10;- Added getAllBookingsByRoomId endpoint in RoomController (paginated)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -260,13 +268,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala</url>
-          <line>27</line>
+          <line>28</line>
           <option name="timeStamp" value="33" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala</url>
-          <line>100</line>
+          <line>106</line>
           <option name="timeStamp" value="35" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala</url>
+          <line>51</line>
+          <option name="timeStamp" value="36" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
