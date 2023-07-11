@@ -2,7 +2,7 @@ package repositories
 
 import dtos.{BookingDTO, BookingOccupationDTO}
 import entities.{Booking, Bookings, Room}
-import exceptions.NotFoundException
+import exceptions.{NotFoundException, OverlappingBookingException}
 import slick.jdbc.PostgresProfile.api._
 import utils.DateTimeUtils
 
@@ -28,10 +28,10 @@ object BookingRepository {
   def create(bookingDTO: BookingDTO): Booking = {
     val optionRoom: Option[Room] = RoomRepository.getById(bookingDTO.roomId)
     if (optionRoom.isEmpty) {
-      throw new Exception("Room with this id doesn't exist")
+      throw new NotFoundException(("Room with this id doesn't exist"))
     }
     if (isBookingOverlapping(bookingDTO.roomId, bookingDTO.fromTime, bookingDTO.untilTime)) {
-      throw new Exception("Overlapping Booking")
+      throw new OverlappingBookingException("Overlapping Booking")
     }
     val booking = bookingDTO.toEntity()
     val query = (bookings returning bookings) += booking
@@ -108,14 +108,26 @@ object BookingRepository {
   }
 
   def update(booking: Booking): Booking = {
-    val query = bookings.filter(_.id === booking.id).update(booking)
-    exec(query)
-    booking
+    val bookingToUpdate: Option[Booking] = BookingRepository.getById(booking.id.get)
+    bookingToUpdate match {
+      case None => throw new NotFoundException("Booking with given id doesn't exist")
+      case Some(_) =>
+        val query = bookings.filter(_.id === booking.id).update(booking)
+        exec(query)
+        booking
+    }
   }
 
   def delete(id: Int): Int = {
-    val query = bookings.filter(_.id === id).delete
-    exec(query)
+    val bookingToDelete: Option[Booking] = BookingRepository.getById(id)
+    bookingToDelete match {
+      case None => throw new NotFoundException("Booking with given id doesn't exist")
+      case Some(_) =>
+        val query = bookings.filter(_.id === id).delete
+        exec(query)
+    }
+
+
   }
 
   //--------------Support services -------------------

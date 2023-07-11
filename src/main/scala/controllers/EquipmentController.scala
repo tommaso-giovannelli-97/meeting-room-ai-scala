@@ -8,6 +8,7 @@ import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
 import dtos.EquipmentDTO
 import entities.Equipment
+import exceptions.NotFoundException
 import repositories.EquipmentRepository
 import spray.json.{DefaultJsonProtocol, DeserializationException, JsString, JsValue, JsonFormat, RootJsonFormat}
 
@@ -80,8 +81,12 @@ object EquipmentController {
       path("equipment") {
         put {
           entity(as[Equipment]) { equipment =>
-            val updateResult = EquipmentRepository.update(equipment)
-            complete(updateResult)
+            try {
+              val updateResult = EquipmentRepository.update(equipment)
+              complete(updateResult)
+            } catch {
+              case ex: NotFoundException => complete(HttpResponse(StatusCodes.NotFound, entity = ex.getMessage))
+            }
           }
         }
       }
@@ -92,8 +97,12 @@ object EquipmentController {
     pathPrefix(baseUrl) {
       path("equipment" / Segment) { id =>
         delete {
-          val deleteResult = EquipmentRepository.delete(id.toInt)
-          complete(HttpResponse(StatusCodes.OK))
+          try {
+            val deleteResult = EquipmentRepository.delete(id.toInt)
+            complete(HttpResponse(StatusCodes.OK))
+          } catch {
+            case ex: NotFoundException => complete(HttpResponse(StatusCodes.NotFound, entity = ex.getMessage))
+          }
         }
       }
     }

@@ -2,6 +2,7 @@ package repositories
 
 import com.typesafe.config.ConfigFactory
 import entities.{Color, Colors}
+import exceptions.NotFoundException
 import slick.jdbc.PostgresProfile.api._
 
 import scala.concurrent.Await
@@ -55,13 +56,23 @@ object ColorRepository {
   }
 
   def update(color: Color): Color = {
-    val query = colors.filter(_.id === color.id).update(color)
-    exec(query)
-    color
+    val colorToUpdate: Option[Color] = ColorRepository.getById(color.id.get)
+    colorToUpdate match {
+      case None => throw new NotFoundException("Color with given id doesn't exist")
+      case Some(_) =>
+        val query = colors.filter(_.id === color.id).update(color)
+        exec(query)
+        color
+    }
   }
 
   def delete(id: Int): Int = {
-    val query = colors.filter(_.id === id).delete
-    exec(query)
+    val colorToDelete: Option[Color] = ColorRepository.getById(id)
+    colorToDelete match {
+      case None => throw new NotFoundException("Color with given id doesn't exist")
+      case Some(_) =>
+        val query = colors.filter(_.id === id).delete
+        exec(query)
+    }
   }
 }

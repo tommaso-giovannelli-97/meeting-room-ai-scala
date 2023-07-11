@@ -8,7 +8,7 @@ import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
 import dtos.{BookingDTO, BookingOccupationDTO}
 import entities.Booking
-import exceptions.NotFoundException
+import exceptions.{NotFoundException, OverlappingBookingException}
 import repositories.BookingRepository
 import spray.json.{DefaultJsonProtocol, DeserializationException, JsString, JsValue, JsonFormat, RootJsonFormat}
 
@@ -56,8 +56,13 @@ object BookingController {
       path("bookings") {
         post {
           entity(as[BookingDTO]) { booking =>
-            val createdBooking = BookingRepository.create(booking)
-            complete(createdBooking)
+            try {
+              val createdBooking = BookingRepository.create(booking)
+              complete(createdBooking)
+            } catch {
+              case ex: OverlappingBookingException => complete(HttpResponse(StatusCodes.BadRequest, entity = ex.getMessage))
+              case ex: NotFoundException => complete(HttpResponse(StatusCodes.NotFound, entity = ex.getMessage))
+            }
           }
         }
       }
@@ -162,8 +167,12 @@ object BookingController {
       path("bookings") {
         put {
           entity(as[Booking]) { booking =>
-            val updateResult = BookingRepository.update(booking)
-            complete(updateResult)
+            try {
+              val updateResult = BookingRepository.update(booking)
+              complete(updateResult)
+            } catch {
+              case ex: NotFoundException => complete(HttpResponse(StatusCodes.NotFound, entity = ex.getMessage))
+            }
           }
         }
       }
@@ -174,8 +183,12 @@ object BookingController {
     pathPrefix(baseUrl) {
       path("bookings" / Segment) { id =>
         delete {
-          val deleteResult = BookingRepository.delete(id.toInt)
-          complete(HttpResponse(StatusCodes.OK))
+          try {
+            val deleteResult = BookingRepository.delete(id.toInt)
+            complete(HttpResponse(StatusCodes.OK))
+          } catch {
+            case ex: NotFoundException => complete(HttpResponse(StatusCodes.NotFound, entity = ex.getMessage))
+          }
         }
       }
     }

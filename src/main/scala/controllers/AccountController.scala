@@ -8,6 +8,7 @@ import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
 import dtos.AccountDTO
 import entities.Account
+import exceptions.NotFoundException
 import repositories.AccountRepository
 import spray.json.{DefaultJsonProtocol, RootJsonFormat}
 
@@ -75,8 +76,12 @@ object AccountController {
       path("accounts") {
         put {
           entity(as[Account]) { account =>
-            val updateResult = AccountRepository.update(account)
-            complete(updateResult)
+            try {
+              val updateResult = AccountRepository.update(account)
+              complete(updateResult)
+            } catch {
+              case ex: NotFoundException => complete(HttpResponse(StatusCodes.NotFound, entity = ex.getMessage))
+            }
           }
         }
       }
@@ -87,8 +92,12 @@ object AccountController {
     pathPrefix(baseUrl) {
       path("accounts" / Segment) { id =>
         delete {
-          val deleteResult = AccountRepository.delete(id)
-          complete(HttpResponse(StatusCodes.OK))
+          try {
+            val deleteResult = AccountRepository.delete(id)
+            complete(HttpResponse(StatusCodes.OK))
+          } catch {
+            case ex: NotFoundException => complete(HttpResponse(StatusCodes.NotFound, entity = ex.getMessage))
+          }
         }
       }
     }

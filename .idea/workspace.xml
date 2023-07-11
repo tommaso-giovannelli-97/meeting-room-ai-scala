@@ -4,11 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac738f0a-f192-4e1c-bce2-c81bd816dc79" name="Changes" comment="- Added pagination to get endpoints according to Spring Boot app&#10;- Added getAllBookingsByRoomId endpoint in RoomController (paginated)">
-      <change afterPath="$PROJECT_DIR$/src/main/scala/exceptions/NotFoundException.scala" afterDir="false" />
+    <list default="true" id="ac738f0a-f192-4e1c-bce2-c81bd816dc79" name="Changes" comment="- Added error handling in getAllByAccountId endpoint in BookingController">
+      <change afterPath="$PROJECT_DIR$/src/main/scala/exceptions/OverlappingBookingException.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/AccountController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/AccountController.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/BookingController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/BookingController.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/ColorController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/ColorController.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/EquipmentController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/EquipmentController.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/RoomController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/RoomController.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/RoomSetupController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/RoomSetupController.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/AccountRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/AccountRepository.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/ColorRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/ColorRepository.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/EquipmentRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/EquipmentRepository.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/RoomRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/RoomRepository.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/RoomSetupRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/RoomSetupRepository.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -206,7 +216,14 @@
       <option name="project" value="LOCAL" />
       <updated>1689000793857</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="- Added error handling in getAllByAccountId endpoint in BookingController">
+      <created>1689003770875</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1689003770875</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -236,29 +253,30 @@
     <MESSAGE value="- Updated getByName query to be case-insensitive" />
     <MESSAGE value="- Made CREATE endpoint of all entities return the just created entity instead of the one passed in the request body&#10;&#10;- Made CREATE endpoint in BookingController check if the booking is overlapping with other bookings already made for that room" />
     <MESSAGE value="- Added pagination to get endpoints according to Spring Boot app&#10;- Added getAllBookingsByRoomId endpoint in RoomController (paginated)" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Added pagination to get endpoints according to Spring Boot app&#10;- Added getAllBookingsByRoomId endpoint in RoomController (paginated)" />
+    <MESSAGE value="- Added error handling in getAllByAccountId endpoint in BookingController" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Added error handling in getAllByAccountId endpoint in BookingController" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/repositories/ColorRepository.scala</url>
-          <line>25</line>
+          <line>26</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/controllers/ColorController.scala</url>
-          <line>35</line>
+          <line>36</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/controllers/RoomController.scala</url>
-          <line>48</line>
+          <line>49</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/repositories/AccountRepository.scala</url>
-          <line>27</line>
+          <line>28</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">

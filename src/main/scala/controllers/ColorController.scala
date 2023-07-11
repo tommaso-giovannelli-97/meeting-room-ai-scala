@@ -2,13 +2,14 @@ package controllers
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
-import akka.http.scaladsl.model.{ HttpResponse, StatusCodes }
+import akka.http.scaladsl.model.{HttpResponse, StatusCodes}
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
 import entities.Color
+import exceptions.NotFoundException
 import repositories.ColorRepository
-import spray.json.{ DefaultJsonProtocol, RootJsonFormat }
+import spray.json.{DefaultJsonProtocol, RootJsonFormat}
 
 import scala.concurrent.ExecutionContext
 
@@ -84,8 +85,12 @@ object ColorController {
       path("colors") {
         put {
           entity(as[Color]) { color =>
-            val updateResult = ColorRepository.update(color)
-            complete(updateResult)
+            try {
+              val updateResult = ColorRepository.update(color)
+              complete(updateResult)
+            } catch {
+              case ex: NotFoundException => complete(HttpResponse(StatusCodes.NotFound, entity = ex.getMessage))
+            }
           }
         }
       }
@@ -96,8 +101,12 @@ object ColorController {
     pathPrefix(baseUrl) {
       path("colors" / Segment) { id =>
         delete {
-          val deleteResult = ColorRepository.delete(id.toInt)
-          complete(HttpResponse(StatusCodes.OK))
+          try {
+            val deleteResult = ColorRepository.delete(id.toInt)
+            complete(HttpResponse(StatusCodes.OK))
+          } catch {
+            case ex: NotFoundException => complete(HttpResponse(StatusCodes.NotFound, entity = ex.getMessage))
+          }
         }
       }
     }

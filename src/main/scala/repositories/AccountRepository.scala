@@ -3,6 +3,7 @@ package repositories
 import com.typesafe.config.ConfigFactory
 import dtos.AccountDTO
 import entities.{Account, Accounts}
+import exceptions.NotFoundException
 import slick.jdbc.PostgresProfile.api._
 
 import scala.concurrent.Await
@@ -41,13 +42,25 @@ object AccountRepository {
   }
 
   def update(account: Account): Account = {
-    val query = accounts.filter(_.id === account.id).update(account)
-    exec(query)
-    account
+    val accountToUpdate = AccountRepository.getById(account.id)
+    accountToUpdate match {
+      case None => throw new NotFoundException("Account with given id doesn't exist")
+      case Some(_) =>
+        val query = accounts.filter(_.id === account.id).update(account)
+        exec(query)
+        account
+    }
+
+
   }
 
   def delete(id: String): Int = {
-    val query = accounts.filter(_.id === id).delete
-    exec(query)
+    val accountToDelete: Option[Account] = AccountRepository.getById(id)
+    accountToDelete match {
+      case None => throw new NotFoundException("Account with given id doesn't exist")
+      case Some(_) =>
+        val query = accounts.filter(_.id === id).delete
+        exec(query)
+    }
   }
 }

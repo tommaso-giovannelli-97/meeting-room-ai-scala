@@ -9,6 +9,7 @@ import akka.stream.ActorMaterializer
 import controllers.BookingJsonProtocol.jsonFormat10
 import dtos.RoomDTO
 import entities.{Booking, Room}
+import exceptions.NotFoundException
 import repositories.{BookingRepository, RoomRepository}
 import spray.json.{DefaultJsonProtocol, DeserializationException, JsString, JsValue, JsonFormat, RootJsonFormat}
 
@@ -110,8 +111,12 @@ object RoomController {
       path("rooms") {
         put {
           entity(as[Room]) { room =>
-            val updateResult = RoomRepository.update(room)
-            complete(updateResult)
+            try {
+              val updateResult = RoomRepository.update(room)
+              complete(updateResult)
+            } catch {
+              case ex: NotFoundException => complete(HttpResponse(StatusCodes.NotFound, entity = ex.getMessage))
+            }
           }
         }
       }
@@ -122,8 +127,12 @@ object RoomController {
     pathPrefix(baseUrl) {
       path("rooms" / Segment) { id =>
         delete {
-          val deleteResult = RoomRepository.delete(id.toInt)
-          complete(HttpResponse(StatusCodes.OK))
+          try {
+            val deleteResult = RoomRepository.delete(id.toInt)
+            complete(HttpResponse(StatusCodes.OK))
+          } catch {
+            case ex: NotFoundException => complete(HttpResponse(StatusCodes.NotFound, entity = ex.getMessage))
+          }
         }
       }
     }

@@ -2,6 +2,7 @@ package repositories
 
 import dtos.EquipmentDTO
 import entities.{Equipment, Equipments}
+import exceptions.NotFoundException
 import slick.jdbc.PostgresProfile.api._
 
 import scala.concurrent.Await
@@ -38,13 +39,23 @@ object EquipmentRepository {
   }
 
   def update(equipment: Equipment): Equipment = {
-    val query = equipments.filter(_.id === equipment.id).update(equipment)
-    exec(query)
-    equipment
+    val equipmentToUpdate: Option[Equipment] = EquipmentRepository.getById(equipment.id.get)
+    equipmentToUpdate match {
+      case None => throw new NotFoundException("Equipment with given id doesn't exist")
+      case Some(_) =>
+        val query = equipments.filter(_.id === equipment.id).update(equipment)
+        exec(query)
+        equipment
+    }
   }
 
   def delete(id: Int): Int = {
-    val query = equipments.filter(_.id === id).delete
-    exec(query)
+    val equipmentToDelete: Option[Equipment] = EquipmentRepository.getById(id)
+    equipmentToDelete match {
+      case None => throw new NotFoundException("Equipment with given id doesn't exist")
+      case Some(_) =>
+        val query = equipments.filter(_.id === id).delete
+        exec(query)
+    }
   }
 }

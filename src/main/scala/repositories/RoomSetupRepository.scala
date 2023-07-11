@@ -3,6 +3,7 @@ package repositories
 import com.typesafe.config.ConfigFactory
 import dtos.RoomSetupDTO
 import entities.{RoomSetup, RoomSetups}
+import exceptions.NotFoundException
 import slick.jdbc.PostgresProfile.api._
 
 import scala.concurrent.Await
@@ -39,14 +40,24 @@ object RoomSetupRepository {
   }
 
   def update(roomSetup: RoomSetup): RoomSetup = {
-    val query = roomSetups.filter(_.id === roomSetup.id).update(roomSetup)
-    exec(query)
-    roomSetup
+    val roomSetupToUpdate: Option[RoomSetup] = RoomSetupRepository.getById(roomSetup.id.get)
+    roomSetupToUpdate match {
+      case None => throw new NotFoundException("Room setup with given id doesn't exist")
+      case Some(_) =>
+        val query = roomSetups.filter(_.id === roomSetup.id).update(roomSetup)
+        exec(query)
+        roomSetup
+    }
   }
 
   def delete(id: Int): Int = {
-    val query = roomSetups.filter(_.id === id).delete
-    exec(query)
+    val roomSetupToDelete: Option[RoomSetup] = RoomSetupRepository.getById(id)
+    roomSetupToDelete match {
+      case None => throw new NotFoundException("Room setup with given id doesn't exist")
+      case Some(_) =>
+        val query = roomSetups.filter(_.id === id).delete
+        exec(query)
+    }
   }
 }
 

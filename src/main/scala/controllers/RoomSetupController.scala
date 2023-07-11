@@ -8,6 +8,7 @@ import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
 import dtos.RoomSetupDTO
 import entities.RoomSetup
+import exceptions.NotFoundException
 import repositories.RoomSetupRepository
 import spray.json.{DefaultJsonProtocol, RootJsonFormat}
 
@@ -71,8 +72,12 @@ object RoomSetupController {
       path("room-setups") {
         put {
           entity(as[RoomSetup]) { roomSetup =>
-            val updateResult = RoomSetupRepository.update(roomSetup)
-            complete(updateResult)
+            try {
+              val updateResult = RoomSetupRepository.update(roomSetup)
+              complete(updateResult)
+            } catch {
+              case ex: NotFoundException => complete(HttpResponse(StatusCodes.NotFound, entity = ex.getMessage))
+            }
           }
         }
       }
@@ -83,8 +88,12 @@ object RoomSetupController {
     pathPrefix(baseUrl) {
       path("room-setups" / Segment) { id =>
         delete {
-          val deleteResult = RoomSetupRepository.delete(id.toInt)
-          complete(HttpResponse(StatusCodes.OK))
+          try {
+            val deleteResult = RoomSetupRepository.delete(id.toInt)
+            complete(HttpResponse(StatusCodes.OK))
+          } catch {
+            case ex: NotFoundException => complete(HttpResponse(StatusCodes.NotFound, entity = ex.getMessage))
+          }
         }
       }
     }
