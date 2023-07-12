@@ -108,11 +108,11 @@ object RoomController {
   // Update
   val updateRoute =
     pathPrefix(baseUrl) {
-      path("rooms") {
+      path("rooms" / Segment) { id =>
         put {
           entity(as[Room]) { room =>
             try {
-              val updateResult = RoomRepository.update(room)
+              val updateResult = RoomRepository.update(id.toInt, room)
               complete(updateResult)
             } catch {
               case ex: NotFoundException => complete(HttpResponse(StatusCodes.NotFound, entity = ex.getMessage))

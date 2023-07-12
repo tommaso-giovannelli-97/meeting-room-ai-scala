@@ -164,11 +164,11 @@ object BookingController {
   // Update
   val updateRoute =
     pathPrefix(baseUrl) {
-      path("bookings") {
+      path("bookings" / Segment) {id =>
         put {
           entity(as[Booking]) { booking =>
             try {
-              val updateResult = BookingRepository.update(booking)
+              val updateResult = BookingRepository.update(id.toInt, booking)
               complete(updateResult)
             } catch {
               case ex: NotFoundException => complete(HttpResponse(StatusCodes.NotFound, entity = ex.getMessage))

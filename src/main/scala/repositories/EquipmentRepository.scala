@@ -38,14 +38,15 @@ object EquipmentRepository {
     exec(equipments.result)
   }
 
-  def update(equipment: Equipment): Equipment = {
-    val equipmentToUpdate: Option[Equipment] = EquipmentRepository.getById(equipment.id.get)
+  def update(id: Int, equipment: Equipment): Equipment = {
+    val equipmentToUpdate: Option[Equipment] = EquipmentRepository.getById(id)
     equipmentToUpdate match {
       case None => throw new NotFoundException("Equipment with given id doesn't exist")
       case Some(_) =>
-        val query = equipments.filter(_.id === equipment.id).update(equipment)
+        val query = equipments.filter(_.id === id).update(equipment)
         exec(query)
-        equipment
+        val updatedEquipment: Option[Equipment] = EquipmentRepository.getById(id)
+        updatedEquipment.getOrElse(throw new NotFoundException("Equipment with given id doesn't exist"))
     }
   }
 

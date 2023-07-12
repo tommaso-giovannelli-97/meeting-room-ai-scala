@@ -51,14 +51,15 @@ object RoomRepository {
     exec(rooms.result)
   }
 
-  def update(room: Room): Room = {
-    val roomToUpdate: Option[Room] = RoomRepository.getById(room.id.get)
+  def update(id: Int, room: Room): Room = {
+    val roomToUpdate: Option[Room] = RoomRepository.getById(id)
     roomToUpdate match {
       case None => throw new NotFoundException("Room with given id doesn't exist")
       case Some(_) =>
-        val query = rooms.filter(_.id === room.id).update(room)
+        val query = rooms.filter(_.id === id).update(room)
         exec(query)
-        room
+        val updatedRoom: Option[Room] = RoomRepository.getById(id)
+        updatedRoom.getOrElse(throw new NotFoundException("Room with given id doesn't exist"))
     }
   }
 

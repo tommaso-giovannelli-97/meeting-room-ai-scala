@@ -107,14 +107,15 @@ object BookingRepository {
     overlappingBookings.nonEmpty
   }
 
-  def update(booking: Booking): Booking = {
-    val bookingToUpdate: Option[Booking] = BookingRepository.getById(booking.id.get)
+  def update(id: Int, booking: Booking): Booking = {
+    val bookingToUpdate: Option[Booking] = BookingRepository.getById(id)
     bookingToUpdate match {
       case None => throw new NotFoundException("Booking with given id doesn't exist")
       case Some(_) =>
-        val query = bookings.filter(_.id === booking.id).update(booking)
+        val query = bookings.filter(_.id === id).update(booking)
         exec(query)
-        booking
+        val updatedBooking: Option[Booking] = BookingRepository.getById(id)
+        updatedBooking.getOrElse(throw new NotFoundException("Booking with given id doesn't exist"))
     }
   }
 

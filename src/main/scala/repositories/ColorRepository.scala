@@ -55,14 +55,15 @@ object ColorRepository {
     exec(query.result)
   }
 
-  def update(color: Color): Color = {
-    val colorToUpdate: Option[Color] = ColorRepository.getById(color.id.get)
+  def update(id: Int, color: Color): Color = {
+    val colorToUpdate: Option[Color] = ColorRepository.getById(id)
     colorToUpdate match {
       case None => throw new NotFoundException("Color with given id doesn't exist")
       case Some(_) =>
-        val query = colors.filter(_.id === color.id).update(color)
+        val query = colors.filter(_.id === id).update(color)
         exec(query)
-        color
+        val updatedColor: Option[Color] = ColorRepository.getById(id)
+        updatedColor.getOrElse(throw new NotFoundException("Color with given id doesn't exist"))
     }
   }
 

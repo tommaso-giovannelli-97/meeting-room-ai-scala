@@ -48,7 +48,8 @@ object AccountRepository {
       case Some(_) =>
         val query = accounts.filter(_.id === account.id).update(account)
         exec(query)
-        account
+        val updatedAccount: Option[Account] = AccountRepository.getById(account.id)
+        updatedAccount.getOrElse(throw new NotFoundException("Account with given id doesn't exist"))
     }
 
 

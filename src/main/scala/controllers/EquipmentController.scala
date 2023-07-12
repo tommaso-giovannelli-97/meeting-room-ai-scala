@@ -78,11 +78,11 @@ object EquipmentController {
   // Update
   val updateRoute =
     pathPrefix(baseUrl) {
-      path("equipment") {
+      path("equipment"/ Segment) {id =>
         put {
           entity(as[Equipment]) { equipment =>
             try {
-              val updateResult = EquipmentRepository.update(equipment)
+              val updateResult = EquipmentRepository.update(id.toInt, equipment)
               complete(updateResult)
             } catch {
               case ex: NotFoundException => complete(HttpResponse(StatusCodes.NotFound, entity = ex.getMessage))

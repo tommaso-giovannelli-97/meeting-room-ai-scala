@@ -82,11 +82,11 @@ object ColorController {
   // Update
   val updateRoute =
     pathPrefix(baseUrl) {
-      path("colors") {
+      path("colors"/ Segment) {id =>
         put {
           entity(as[Color]) { color =>
             try {
-              val updateResult = ColorRepository.update(color)
+              val updateResult = ColorRepository.update(id.toInt, color)
               complete(updateResult)
             } catch {
               case ex: NotFoundException => complete(HttpResponse(StatusCodes.NotFound, entity = ex.getMessage))
