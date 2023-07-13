@@ -6,11 +6,12 @@ import akka.http.scaladsl.model.{HttpResponse, StatusCodes}
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
-import dtos.{BookingDTO, BookingOccupationDTO}
+import dtos.{BookingDTO, BookingOccupationDTO, FilterDTO}
 import entities.Booking
 import exceptions.{NotFoundException, OverlappingBookingException}
 import repositories.BookingRepository
 import spray.json.{DefaultJsonProtocol, DeserializationException, JsString, JsValue, JsonFormat, RootJsonFormat}
+import utils.DateTimeUtils
 
 import java.sql.Timestamp
 import java.time.LocalDate
@@ -38,6 +39,7 @@ object BookingJsonProtocol extends DefaultJsonProtocol {
   implicit val bookingFormat: RootJsonFormat[Booking] = jsonFormat10(Booking)
   implicit val bookingDTOFormat: RootJsonFormat[BookingDTO] = jsonFormat7(BookingDTO)
   implicit val bookingOccupationDTOFormat: RootJsonFormat[BookingOccupationDTO] = jsonFormat4(BookingOccupationDTO)
+  implicit val filterDTO : RootJsonFormat[FilterDTO] = jsonFormat4(FilterDTO)
 }
 
 object BookingController {
@@ -155,11 +157,38 @@ object BookingController {
     pathPrefix(baseUrl) {
       path("bookings" / Segment / Segment / Segment) { (roomName, startDate, endDate) =>
         get {
-          val occupationResult: Seq[BookingOccupationDTO] = BookingRepository.getRoomOccupationBetweenDates(roomName, startDate, endDate)
-          complete(occupationResult)
+          try {
+            val occupationResult: Seq[BookingOccupationDTO] = BookingRepository.getRoomOccupationBetweenDates(roomName, startDate, endDate)
+            complete(occupationResult)
+          } catch {
+            case ex: NotFoundException => complete(HttpResponse(StatusCodes.NotFound, entity = ex.getMessage))
+          }
+
         }
       }
     }
+
+val getFilteredBookingsRoute =
+  pathPrefix(baseUrl) {
+    path("filters") {
+      post {
+        entity(as[FilterDTO]) { filters =>
+          try {
+            val startDate : Option[Timestamp] = DateTimeUtils.convertOptionalStringToTimestamp(filters.fromTime)
+            val endDate : Option[Timestamp] = DateTimeUtils.convertOptionalStringToTimestamp(filters.untilTime)
+
+            val bookings: Seq[Booking] = BookingRepository.getFilteredBookings(filters.roomId, filters.accountId, startDate, endDate)
+            complete(bookings)
+
+          } catch {
+            case ex: NotFoundException => complete(HttpResponse(StatusCodes.NotFound, entity = ex.getMessage))
+          }
+        }
+      }
+    }
+  }
+
+
 
   // Update
   val updateRoute =
@@ -195,5 +224,5 @@ object BookingController {
 
   //~ getAllRoute
   val bookingRoutes: Route = createRoute ~ getAllRoute ~ getUpcomingRoute ~ getByDateRoute ~
-    getRoomOccupationBetweenDatesRoute ~ getByIdRoute ~ getAllByAccountIdRoute  ~ updateRoute ~ deleteRoute
+    getFilteredBookingsRoute ~ getRoomOccupationBetweenDatesRoute ~ getByIdRoute ~ getAllByAccountIdRoute  ~ updateRoute ~ deleteRoute
 }

@@ -83,21 +83,41 @@ object BookingRepository {
     exec(query.result)
   }
 
+  def getFilteredBookings(roomId: Option[Int],
+                          accountId: Option[String],
+                          fromDate: Option[Timestamp],
+                          untilDate: Option[Timestamp]) : Seq[Booking] = {
+    val query = bookings
+      .filter(b =>
+        roomId.map(id => b.roomId === id).getOrElse(true: Rep[Boolean]) &&
+          accountId.map(id => b.accountId === id).getOrElse(true: Rep[Boolean]) &&
+          fromDate.map(date => b.fromTime >= date).getOrElse(true: Rep[Boolean]) &&
+          untilDate.map(date => b.untilTime <= date).getOrElse(true: Rep[Boolean]) &&
+          b.isActive === true
+      )
+
+    exec(query.result)
+  }
+
   def getRoomOccupationBetweenDates(roomName: String, startDate:String, endDate:String)
   :Seq[BookingOccupationDTO] = {
     val optionRoom : Option[Room] = RoomRepository.getByNameIgnoreCase(roomName)
-    if(optionRoom.isEmpty) {throw new Exception("Room with this name doesn't exist")}
-    val startDateTimestamp : Timestamp = DateTimeUtils.toWorkDayBeginning(DateTimeUtils.convertStringToTimestamp(startDate).get)
-    val endDateTimestamp : Timestamp = DateTimeUtils.toWorkDayEnd(DateTimeUtils.convertStringToTimestamp(endDate).get)
-    val bookingsBetweenDates :Seq[Booking] = getByRoomIdBetweenDates(optionRoom.get.id.get, startDateTimestamp, endDateTimestamp )
-    var allOccupationSlots : Vector[BookingOccupationDTO] = generateBookingOccupationSlots(startDateTimestamp, endDateTimestamp)
-    for (booking <- bookingsBetweenDates) {
-      val bookingSlots: Range.Inclusive = getBookingOccupationSlots(startDateTimestamp, booking.fromTime, booking.untilTime)
-      for (slot <- bookingSlots) {
-        allOccupationSlots = allOccupationSlots.updated(slot, getUpdatedOccupationDTO(allOccupationSlots(slot)))
-      }
+    optionRoom match {
+      case None => throw new NotFoundException("Room with given id doesn't exist")
+      case Some(_) =>
+        val startDateTimestamp: Timestamp = DateTimeUtils.toWorkDayBeginning(DateTimeUtils.convertStringToTimestamp(startDate).get)
+        val endDateTimestamp: Timestamp = DateTimeUtils.toWorkDayEnd(DateTimeUtils.convertStringToTimestamp(endDate).get)
+        val bookingsBetweenDates: Seq[Booking] = getByRoomIdBetweenDates(optionRoom.get.id.get, startDateTimestamp, endDateTimestamp)
+        var allOccupationSlots: Vector[BookingOccupationDTO] = generateBookingOccupationSlots(startDateTimestamp, endDateTimestamp)
+        for (booking <- bookingsBetweenDates) {
+          val bookingSlots: Range.Inclusive = getBookingOccupationSlots(startDateTimestamp, booking.fromTime, booking.untilTime)
+          for (slot <- bookingSlots) {
+            allOccupationSlots = allOccupationSlots.updated(slot, getUpdatedOccupationDTO(allOccupationSlots(slot)))
+          }
+        }
+        allOccupationSlots
     }
-    allOccupationSlots
+
   }
 
   def isBookingOverlapping(roomId: Int, startDate: Timestamp, endDate:Timestamp) : Boolean = {

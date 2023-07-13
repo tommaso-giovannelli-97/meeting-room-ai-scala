@@ -17,6 +17,21 @@ object DateTimeUtils {
     }
   }
 
+  def convertOptionalStringToTimestamp(optionDateString: Option[String]): Option[Timestamp] = {
+    val format = new SimpleDateFormat("yyyy-MM-dd")
+    optionDateString match {
+      case None => None
+      case Some(dateString) =>
+        try {
+          val parsedDate = format.parse(dateString)
+          Some(new Timestamp(parsedDate.getTime))
+        } catch {
+          case _: Exception => None
+        }
+    }
+
+  }
+
   def addDaysToTimestamp(timestamp: Timestamp, numberOfDays : Int) : Timestamp = {
     val calendar = Calendar.getInstance()
     calendar.setTime(timestamp)

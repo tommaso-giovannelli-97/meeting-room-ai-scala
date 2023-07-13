@@ -4,19 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac738f0a-f192-4e1c-bce2-c81bd816dc79" name="Changes" comment="- Updated error handling in createBooking endpoint&#10;- Added error handling in all DELETE endpoints&#10;- Added error handling in all UPDATE endpoints">
+    <list default="true" id="ac738f0a-f192-4e1c-bce2-c81bd816dc79" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/scala/dtos/FilterDTO.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/BookingController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/BookingController.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/ColorController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/ColorController.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/EquipmentController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/EquipmentController.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/RoomController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/RoomController.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/controllers/RoomSetupController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controllers/RoomSetupController.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/AccountRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/AccountRepository.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/ColorRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/ColorRepository.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/EquipmentRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/EquipmentRepository.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/RoomRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/RoomRepository.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/repositories/RoomSetupRepository.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/repositories/RoomSetupRepository.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/utils/DateTimeUtils.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/utils/DateTimeUtils.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -228,7 +221,14 @@
       <option name="project" value="LOCAL" />
       <updated>1689090611937</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="- Updated UPDATE endpoints to take entity id as path variable&#10;- Updated UPDATE endpoints to return updated entity instead of request body entity">
+      <created>1689179150211</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1689179150211</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -260,7 +260,8 @@
     <MESSAGE value="- Added pagination to get endpoints according to Spring Boot app&#10;- Added getAllBookingsByRoomId endpoint in RoomController (paginated)" />
     <MESSAGE value="- Added error handling in getAllByAccountId endpoint in BookingController" />
     <MESSAGE value="- Updated error handling in createBooking endpoint&#10;- Added error handling in all DELETE endpoints&#10;- Added error handling in all UPDATE endpoints" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Updated error handling in createBooking endpoint&#10;- Added error handling in all DELETE endpoints&#10;- Added error handling in all UPDATE endpoints" />
+    <MESSAGE value="- Updated UPDATE endpoints to take entity id as path variable&#10;- Updated UPDATE endpoints to return updated entity instead of request body entity" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Updated UPDATE endpoints to take entity id as path variable&#10;- Updated UPDATE endpoints to return updated entity instead of request body entity" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -287,7 +288,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/utils/DateTimeUtils.scala</url>
-          <line>34</line>
+          <line>49</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
@@ -302,7 +303,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/repositories/BookingRepository.scala</url>
-          <line>116</line>
+          <line>136</line>
           <option name="timeStamp" value="37" />
         </line-breakpoint>
       </breakpoints>
